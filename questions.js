@@ -150,7 +150,7 @@ const FUNDAMENTAL_QUESTIONS = [
   },
   {
     id: 9,
-    question: "Observando esta curva de respuesta espectral de un filtro analógico (donde las bajas frecuencias se mantienen en 0 dB y las frecuencias sobre el corte caen en pendiente): ¿A qué tipo de filtro corresponde y cómo actúa?",
+    question: "Observando esta curva de respuesta espectral de un filtro analógico (eje horizontal: frecuencia, eje vertical: amplitud): ¿A qué tipo de filtro corresponde y cómo actúa?",
     points: 1,
     isBonus: false,
     image: "assets/images/filter_lpf.png",
@@ -180,10 +180,10 @@ const FUNDAMENTAL_QUESTIONS = [
   },
   {
     id: 11,
-    question: "En la síntesis analógica (estándar Eurorack ilustrado en el diagrama), ¿qué establece rigurosamente la norma de 1V/Octava (1 Volt por Octava)?",
+    question: "En la síntesis analógica (estándar Eurorack), ¿qué establece rigurosamente la norma de 1V/Octava (1 Volt por Octava)?",
     points: 1,
     isBonus: false,
-    image: "assets/images/eurorack_1v_oct.png",
+    image: null,
     options: [
       "Que el sintetizador modular no puede recibir voltajes de entrada superiores a 1.0 Voltio.",
       "Que el rango de afinación de todo el instrumento está restringido a 1 sola octava útil.",
