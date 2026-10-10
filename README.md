@@ -59,6 +59,14 @@ python3 -m http.server 8080
 ```
 Y abre en tu navegador: [http://localhost:8080](http://localhost:8080)
 
+### Regenerar los diagramas
+Los diagramas (`assets/images/`) se generan con un script reproducible en el
+estilo de casa (fondo oscuro, neón, texto grande). Requiere
+[`uv`](https://docs.astral.sh/uv/):
+```bash
+uv run --with matplotlib scripts/render_diagrams.py
+```
+
 ---
 
 ## 📊 Configuración de Google Sheets (BBDD en la Nube)

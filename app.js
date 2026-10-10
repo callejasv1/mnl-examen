@@ -175,8 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const infoBonusEl = document.getElementById('infoBonusNote');
   if (infoBonusEl) {
-    const plural = bonusCount === 1 ? 'pregunta' : 'preguntas';
-    infoBonusEl.textContent = `Las ${bonusCount} ${plural} de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.`;
+    infoBonusEl.textContent = bonusCount === 1
+      ? 'La pregunta de humor es bonus y no afecta tu nota. Cada pregunta técnica vale 1 punto.'
+      : `Las ${bonusCount} preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.`;
   }
 
   if (EXAM_CONFIG.title) document.title = `${EXAM_CONFIG.title} — Make Noise Lab`;
@@ -357,17 +358,20 @@ function renderQuestion(index) {
       card.tabIndex = 0;
     });
     card.addEventListener('keydown', (e) => {
+      // Patrón ARIA radiogroup: flechas mueven el foco Y seleccionan
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         selectOption(q.id, optIdx);
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
-        const next = card.nextElementSibling || elements.optionsContainer.firstElementChild;
-        if (next) next.focus();
+        const nextIdx = (optIdx + 1) % q.options.length;
+        selectOption(q.id, nextIdx);
+        elements.optionsContainer.children[nextIdx].focus();
       } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        const prev = card.previousElementSibling || elements.optionsContainer.lastElementChild;
-        if (prev) prev.focus();
+        const prevIdx = (optIdx - 1 + q.options.length) % q.options.length;
+        selectOption(q.id, prevIdx);
+        elements.optionsContainer.children[prevIdx].focus();
       }
     });
 
@@ -386,6 +390,8 @@ function selectOption(questionId, optionIndex) {
   playSynthTone(440 + (optionIndex * 55), 'sine', 0.07);
 
   elements.optionsContainer.querySelectorAll('.option-card').forEach((card, idx) => {
+    // Roving tabindex: la opción seleccionada pasa a ser la única tabulable
+    card.tabIndex = idx === optionIndex ? 0 : -1;
     if (idx === optionIndex) {
       card.classList.add('selected');
       card.setAttribute('aria-checked', 'true');
@@ -457,6 +463,7 @@ function finishExam() {
     score: technicalScore,
     totalPoints: technicalMax,
     bonusCorrect,
+    bonusTotal: QUESTIONS.filter(q => q.isBonus).length,
     percentage,
     passed,
     startedAt: state.startedAt,
@@ -565,7 +572,7 @@ function renderResultsScreen(record) {
       if (record.passed) {
         // Alumno APROBADO: Ver respuestas correctas y explicaciones completas
         item.innerHTML = `
-          <div class="review-q-num">[PARCHE ${String(idx + 1).padStart(2, '0')}] // ${isCorrect ? '✓ CORRECTO (+1 PTO)' : '✗ INCORRECTO (0 PTO)'}</div>
+          <div class="review-q-num">[PARCHE ${String(idx + 1).padStart(2, '0')}] // ${isCorrect ? `✓ CORRECTO (+${q.points} PTO)` : '✗ INCORRECTO (0 PTO)'}</div>
           <div class="review-q-text">${q.question}</div>
           <div class="review-ans-row student"><strong>Tu selección:</strong> ${studentAnsText}</div>
           ${!isCorrect ? `<div class="review-ans-row correct-ans"><strong>Respuesta correcta:</strong> ${correctAnsText}</div>` : ''}
@@ -574,7 +581,7 @@ function renderResultsScreen(record) {
       } else {
         // Alumno REPROBADO: Respuestas correctas y explicaciones OCULTAS
         item.innerHTML = `
-          <div class="review-q-num">[PARCHE ${String(idx + 1).padStart(2, '0')}] // ${isCorrect ? '✓ CORRECTO (+1 PTO)' : '✗ INCORRECTO (0 PTO)'}</div>
+          <div class="review-q-num">[PARCHE ${String(idx + 1).padStart(2, '0')}] // ${isCorrect ? `✓ CORRECTO (+${q.points} PTO)` : '✗ INCORRECTO (0 PTO)'}</div>
           <div class="review-q-text">${q.question}</div>
           <div class="review-ans-row student ${!isCorrect ? 'student-wrong' : ''}"><strong>Tu selección:</strong> ${studentAnsText}</div>
           ${!isCorrect ? `<div class="review-ans-row locked-msg">🔒 <strong>Respuesta correcta oculta:</strong> Debes aprobar para desbloquear las soluciones.</div>` : ''}
@@ -597,7 +604,7 @@ function sendWhatsAppReceipt() {
   const record = getLatestSubmission();
   if (!record) return;
 
-  const bonusTotal = QUESTIONS.filter(q => q.isBonus).length;
+  const bonusTotal = record.bonusTotal || QUESTIONS.filter(q => q.isBonus).length;
   const statusText = record.passed ? '✅ APROBADO' : '❌ REPROBADO';
   const msg =
 `*Make Noise Lab — Examen Teórico Síntesis Modular* 🎛️
@@ -792,7 +799,7 @@ function retryExam() {
 function downloadCertificatePdf() {
   const record = getLatestSubmission();
   if (!record || !record.passed) {
-    alert("El certificado de aprobación solo está disponible si superas el 70% de exigencia.");
+    alert(`El certificado de aprobación solo está disponible si superas el ${EXAM_CONFIG.passingScorePercentage}% de exigencia.`);
     return;
   }
 

@@ -1,48 +1,37 @@
-# AGENTS.md — Make Noise Lab · Examen Teórico
+# AGENTS.md — Examen Teórico MNL
 
-Guía para agentes que trabajen en este repositorio (app web estática del
-Examen Teórico del Diplomado en Síntesis Modular de Make Noise Lab).
+App web estática (sin build) del Examen Teórico del Diplomado en Síntesis
+Modular de Make Noise Lab.
 
-## Reglas de rama y push
+## Rama y push
+- **NUNCA `git push` a `main`** (producción, GitHub Pages).
+- Trabaja en ramas `fix/...` o `feat/...` creadas desde `main`.
+- No hagas `git push` (a ninguna rama) ni reescribas historia salvo pedido explícito.
 
-- **NUNCA hacer `git push` a `main`.** Está prohibido. `main` es la rama de
-  producción que sirve GitHub Pages.
-- Todo cambio se hace en una rama aparte (ej. `fix/...`, `feat/...`) creada
-  desde `main`.
-- **No hacer `git push`** (ni a `main` ni a ninguna rama) salvo que un humano
-  lo pida explícitamente. Los commits locales en la rama son suficientes.
-- No reescribir historia (`rebase`, `force-push`, `amend` de commits ya
-  compartidos) sin autorización explícita.
+## Archivos
+- `index.html` — 3 pantallas: bienvenida, quiz, resultados.
+- `app.js` — motor (estado, render, audio, CSV, PDF, sync).
+- `questions.js` — `QUESTIONS` + `EXAM_CONFIG`; `EXAM_MODE` = `fundamentos|avanzado|completo`.
+- `style.css` — sistema brutalista (réplica de makenoiselab.cl).
+- `assets/` — fuentes, diagramas (`assets/images/`) y logos.
+- `scripts/` — utilidades (render de diagramas).
+- `web/` — referencia del Diplomado original (no es la app).
+- `GUIA_DISENO.md` — identidad visual.
 
-## Estructura del proyecto
+## Reglas de contenido
+- Cero cifras hardcodeadas: deriva preguntas, puntaje y mínimo de aprobación
+  de `QUESTIONS`/`EXAM_CONFIG` en runtime.
+- Aprobación 70%; `isBonus` nunca puntúa.
 
-- `index.html` — vista única (pantallas: bienvenida, quiz, resultados).
-- `app.js` — motor de la evaluación (estado, render, audio, resultados, CSV, PDF).
-- `questions.js` — banco de preguntas y `EXAM_CONFIG`. El flag `EXAM_MODE`
-  (`fundamentos` | `avanzado` | `completo`) alterna el set.
-- `style.css` — sistema visual brutalista (réplica de makenoiselab.cl).
-- `assets/` — fuentes, imágenes (diagramas) y logos.
-- `web/` — copia de referencia de la página "Diplomado" original. No es la
-  app; úsala solo como referencia de diseño.
-- `GUIA_DISENO.md` — guía de identidad visual de Make Noise Lab.
+## Tooling
+- **Usa siempre `uv`** para Python (ej. `uv run --with matplotlib script.py`).
+  Nunca `pip install` global.
 
-## Reglas de contenido (evaluación)
-
-- Las métricas (nº de preguntas, puntaje, mínimo de aprobación, bonus) deben
-  derivarse de `QUESTIONS`/`EXAM_CONFIG` en tiempo de ejecución. **No
-  hardcodear cifras** en `index.html` o en textos de `app.js`.
-- El puntaje de aprobación es 70% y las preguntas `isBonus` nunca puntúan.
-
-## Verificación antes de terminar
-
-No hay framework de tests. Verifica así:
-
+## Verificación
 ```bash
 node --check app.js && node --check questions.js
-python3 -m http.server 8080   # abrir http://localhost:8080 y probar los flujos
+python3 -m http.server 8080   # probar flujos en http://localhost:8080
 ```
-
-- Revisa que las métricas de la pantalla de bienvenida y resultados cuadren
-  con el `EXAM_MODE` activo.
-- Mantén el diseño brutalista: sin bordes redondeados, paleta neón
-  (`#EFFF1A`, `#FF3399`), tipografías `Built Titling`/`Anton`.
+- Comprueba que las métricas cuadren con el `EXAM_MODE` activo.
+- Mantén el estilo: sin bordes redondeados; neón `#EFFF1A`/`#FF3399`;
+  tipografías Built Titling/Anton.
