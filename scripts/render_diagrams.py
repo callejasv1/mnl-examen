@@ -188,13 +188,20 @@ def sample_hold():
         a.set_xticks([]); a.set_yticks([])
         for s in a.spines.values():
             s.set_color(DIM)
+    def s(x):
+        return 4 * np.sin(2 * np.pi * x / 3.0)
+
     t = np.linspace(0, 8, 1400)
-    sig = 4 * np.sin(2 * np.pi * t / 3.0)
+    sig = s(t)
     trig = np.arange(0.5, 8, 1.15)
+    samples = s(trig)                      # valor exacto de la onda en cada trigger
     idx = np.searchsorted(t, trig)
-    counts = np.diff(np.append(idx, len(t)))
-    hold = np.concatenate((np.full(idx[0], sig[idx[0]]), np.repeat(sig[idx], counts)))[:len(t)]
+    hold = np.zeros_like(t)                # antes del primer trigger no hay captura
+    for i, ix in enumerate(idx):
+        end = idx[i + 1] if i + 1 < len(idx) else len(t)
+        hold[ix:end] = samples[i]          # retiene el valor muestreado hasta el próximo trigger
     axs[0].plot(t, sig, color=CYAN, lw=2.4)
+    axs[0].plot(trig, samples, "o", color=NEON, ms=5, zorder=5)  # puntos de muestreo
     axs[0].set_ylim(-6, 6)
     axs[1].vlines(trig, 0, 1, color=NEON, lw=5)
     axs[1].set_ylim(-0.2, 1.4)
@@ -393,14 +400,27 @@ def vcv_patch():
         i = mods.index(m)
         return (x0 + i * (bw + gap) + bw / 2, y0 + bh)
 
+    # Jack de destino (el que recibe el cable) y su color
+    port_lab = {
+        "MIDI-CV": ("V/OCT · GATE", CYAN),
+        "VCO-1": ("V/OCT", CYAN),
+        "VCO-2": ("", DIM),
+        "VCF": ("AUDIO IN", NEON),
+        "ADSR": ("GATE", PINK),
+        "VCA": ("AUDIO IN", ORANGE),
+        "AUDIO-8": ("IN", GREEN),
+    }
     for i, m in enumerate(mods):
         x = x0 + i * (bw + gap)
         ax.add_patch(Rectangle((x, y0), bw, bh, facecolor=PANEL, edgecolor=DIM, lw=1.5, zorder=2))
         ax.text(x + bw / 2, y0 + bh - 26, m, ha="center", va="center", color="#ffffff",
                 fontsize=NAME, fontweight="bold", zorder=3)
-        for k in range(3):
-            ax.add_patch(Circle((x + 24 + k * 35, y0 + 22), 5, facecolor="#000",
-                                edgecolor=FAINT, lw=1, zorder=3))
+        lab, col = port_lab[m]
+        if lab:
+            ax.add_patch(Circle((x + bw / 2, y0 + 84), 7, facecolor="#000",
+                                edgecolor=col, lw=1.6, zorder=4))
+            ax.text(x + bw / 2, y0 + 60, lab, ha="center", va="center",
+                    fontsize=11, color=col, zorder=4)
     cables = [
         (bot("MIDI-CV"), bot("VCO-1"), CYAN, -0.5),
         (bot("VCO-1"), bot("VCF"), NEON, -0.28),

@@ -1166,12 +1166,21 @@ summary:focus-visible,
   font-size: 0.75rem;
   position: sticky;
   top: -12px;
+  left: 0;
   background: #111;
   padding: 4px 0;
   z-index: 2;
 }
+/* El botón de cierre se fija al viewport para que siga accesible aun
+   paneando la imagen ampliada en el teléfono */
+.lightbox-top .close-square-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+}
 .lightbox-media {
-  /* En móvil la imagen excede el ancho del modal para poder paneárie y leer el detalle */
+  /* En móvil la imagen excede el ancho del modal para poder panearla y leer el detalle */
   max-width: none;
   max-height: none;
   width: min(1600px, 280vw);

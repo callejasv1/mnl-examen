@@ -202,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cerrar modales con Escape (WCAG 2.1)
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    if (elements.lightboxOverlay.classList.contains('active')) closeLightbox();
-    if (elements.adminModal.classList.contains('active')) closeAdminModal();
+    if (elements.lightboxOverlay && elements.lightboxOverlay.classList.contains('active')) closeLightbox();
+    if (elements.adminModal && elements.adminModal.classList.contains('active')) closeAdminModal();
   });
 });
 
@@ -514,8 +514,8 @@ function renderResultsScreen(record) {
   if (actionsContainer) {
     if (record.passed) {
       actionsContainer.innerHTML = `
-        <button class="btn-cta-cert" id="downloadCertBtn" onclick="downloadCertificatePdf()" aria-label="Descargar Certificado Oficial en PDF">
-          🎓 DESCARGAR CERTIFICADO OFICIAL (PDF)
+        <button class="btn-cta-cert" id="downloadCertBtn" onclick="downloadCertificatePdf()" aria-label="Descargar Comprobante de Examen Teórico en PDF">
+          📄 DESCARGAR COMPROBANTE DE EXAMEN TEÓRICO (PDF)
         </button>
         <button class="btn-cta-whatsapp" id="shareWhatsappBtn" onclick="sendWhatsAppReceipt()" aria-label="Enviar comprobante por WhatsApp">
           ENVIAR POR WHATSAPP 📲
@@ -740,9 +740,12 @@ function openLightbox(src) {
   if (!src) return;
   elements.lightboxImg.src = src;
   elements.lightboxOverlay.classList.add('active');
+  const closeBtn = elements.lightboxOverlay.querySelector('.close-square-btn');
+  if (closeBtn) closeBtn.focus();
 }
 function closeLightbox() {
   elements.lightboxOverlay.classList.remove('active');
+  elements.lightboxImg.src = '';
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -799,7 +802,7 @@ function retryExam() {
 function downloadCertificatePdf() {
   const record = getLatestSubmission();
   if (!record || !record.passed) {
-    alert(`El certificado de aprobación solo está disponible si superas el ${EXAM_CONFIG.passingScorePercentage}% de exigencia.`);
+    alert(`El comprobante de aprobación solo está disponible si superas el ${EXAM_CONFIG.passingScorePercentage}% de exigencia.`);
     return;
   }
 
@@ -854,101 +857,107 @@ function generateJsPdfCertificate(record) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(239, 255, 26);
-  doc.text("MAKE NOISE LAB • MODULAR MOON SANTIAGO", pageW / 2, 27, { align: "center" });
+  doc.text("MAKE NOISE LAB • MODULAR MOON SANTIAGO", pageW / 2, 26, { align: "center" });
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(8.5);
-  doc.setTextColor(180, 180, 180);
-  doc.text("SEDE CHILENA DE MODULAR MOON AMSTERDAM • EVALUACIÓN ACADÉMICA OFICIAL", pageW / 2, 33, { align: "center" });
+  doc.setFontSize(8);
+  doc.setTextColor(170, 170, 170);
+  doc.text("REGISTRO ACADÉMICO OFICIAL • CICLO DIPLOMADO EN SÍNTESIS MODULAR", pageW / 2, 32, { align: "center" });
 
-  // Línea divisoria dorada
+  // Línea divisoria
   doc.setDrawColor(239, 255, 26);
-  doc.setLineWidth(0.6);
-  doc.line(45, 38, pageW - 45, 38);
+  doc.setLineWidth(0.5);
+  doc.line(45, 36, pageW - 45, 36);
 
-  // Título Principal
+  // Título: Comprobante Oficial de Aprobación
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(26);
+  doc.setFontSize(23);
   doc.setTextColor(255, 255, 255);
-  doc.text("CERTIFICADO DE APROBACIÓN", pageW / 2, 52, { align: "center" });
+  doc.text("COMPROBANTE DE APROBACIÓN", pageW / 2, 49, { align: "center" });
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
+  doc.setFontSize(12);
   doc.setTextColor(249, 231, 80);
-  doc.text("DIPLOMADO EN SÍNTESIS MODULAR", pageW / 2, 60, { align: "center" });
+  doc.text("EXAMEN TEÓRICO DE SÍNTESIS MODULAR", pageW / 2, 57, { align: "center" });
 
   // Texto introductorio
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(10.5);
+  doc.setFontSize(10);
   doc.setTextColor(200, 200, 200);
-  doc.text("Por cuanto se certifica que:", pageW / 2, 73, { align: "center" });
+  doc.text("Se deja constancia oficial de que el/la estudiante:", pageW / 2, 70, { align: "center" });
 
   // Nombre del Estudiante (Destacado en amarillo neón)
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(24);
+  doc.setFontSize(22);
   doc.setTextColor(239, 255, 26);
-  doc.text(record.studentName.toUpperCase(), pageW / 2, 86, { align: "center" });
+  doc.text(record.studentName.toUpperCase(), pageW / 2, 83, { align: "center" });
 
   // Subrayado del nombre
   doc.setDrawColor(239, 255, 26);
   doc.setLineWidth(0.8);
   const nameWidth = doc.getTextWidth(record.studentName.toUpperCase());
-  doc.line((pageW / 2) - (nameWidth / 2) - 8, 90, (pageW / 2) + (nameWidth / 2) + 8, 90);
+  doc.line((pageW / 2) - (nameWidth / 2) - 8, 87, (pageW / 2) + (nameWidth / 2) + 8, 87);
 
   // Descripción técnica
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setTextColor(220, 220, 220);
-  const desc = "Ha aprobado exitosamente la Evaluación Teórica de Síntesis Modular, demostrando dominio riguroso en control de voltaje (CV/Gate), arquitectura de sistemas Eurorack, síntesis sustractiva, osciladores, envolventes, modulación y ruteo analógico.";
+  const desc = "Ha rendido y aprobado satisfactoriamente la Evaluación Teórica del Diplomado en Síntesis Modular, demostrando dominio en control de voltaje (CV/Gate, 1V/Oct), arquitectura de sistemas Eurorack, síntesis sustractiva, osciladores, envolventes, modulación y ruteo analógico.";
   const splitDesc = doc.splitTextToSize(desc, 220);
-  doc.text(splitDesc, pageW / 2, 100, { align: "center" });
+  doc.text(splitDesc, pageW / 2, 97, { align: "center" });
 
-  // Caja de métricas de certificación
-  doc.setFillColor(28, 28, 30);
-  doc.roundedRect(45, 116, pageW - 90, 24, 2.5, 2.5, 'F');
+  // Caja de métricas de examen
+  doc.setFillColor(25, 25, 28);
+  doc.roundedRect(45, 112, pageW - 90, 24, 2.5, 2.5, 'F');
   doc.setDrawColor(60, 60, 65);
   doc.setLineWidth(0.4);
-  doc.roundedRect(45, 116, pageW - 90, 24, 2.5, 2.5, 'D');
+  doc.roundedRect(45, 112, pageW - 90, 24, 2.5, 2.5, 'D');
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(239, 255, 26);
-  doc.text(`PUNTAJE: ${record.score} / ${record.totalPoints} PTS (${record.percentage}%)`, 58, 126);
+  doc.text(`PUNTAJE: ${record.score} / ${record.totalPoints} PTS (${record.percentage}%)`, 58, 122);
 
   doc.setTextColor(249, 231, 80);
-  doc.text(`ESTADO: APROBADO (EXIGENCIA ${EXAM_CONFIG.passingScorePercentage}%)`, 58, 133);
+  doc.text(`ESTADO: EXAMEN TEÓRICO APROBADO (EXIGENCIA ${EXAM_CONFIG.passingScorePercentage}%)`, 58, 129);
 
   doc.setFont("helvetica", "normal");
   doc.setTextColor(180, 180, 180);
-  doc.text(`FOLIO: ${record.id}`, pageW - 58, 126, { align: "right" });
+  doc.text(`FOLIO TÉCNICO: ${record.id}`, pageW - 58, 122, { align: "right" });
   const dateFormatted = new Date(record.completedAt || Date.now()).toLocaleDateString('es-CL', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
-  doc.text(`FECHA DE EMISIÓN: ${dateFormatted}`, pageW - 58, 133, { align: "right" });
+  doc.text(`FECHA DE EMISIÓN: ${dateFormatted}`, pageW - 58, 129, { align: "right" });
+
+  // Aclaración importante sobre el Live Set y Diploma final
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(8);
+  doc.setTextColor(150, 150, 155);
+  doc.text("* Este documento certifica la aprobación de la fase teórica. La titulación oficial y diploma del Diplomado se confieren tras la presentación del Live Set.", pageW / 2, 144, { align: "center" });
 
   // Firmas y Sellos Institucionales (Inferior)
-  const lineY = 168;
+  const lineY = 170;
 
   // Firma Make Noise Lab (Izquierda)
   doc.setDrawColor(180, 180, 180);
   doc.setLineWidth(0.4);
   doc.line(45, lineY, 115, lineY);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(255, 255, 255);
   doc.text("MAKE NOISE LAB", 80, lineY + 5, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(160, 160, 160);
-  doc.text("Dirección Académica Santiago", 80, lineY + 9, { align: "center" });
+  doc.text("Evaluación Teórica Santiago", 80, lineY + 9, { align: "center" });
 
   // Sello Central
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(239, 255, 26);
-  doc.text("★ CERTIFICACIÓN VERIFICADA ★", pageW / 2, lineY + 3, { align: "center" });
+  doc.text("★ EXAMEN TEÓRICO APROBADO ★", pageW / 2, lineY + 3, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(140, 140, 140);
@@ -957,16 +966,16 @@ function generateJsPdfCertificate(record) {
   // Firma Modular Moon (Derecha)
   doc.line(pageW - 115, lineY, pageW - 45, lineY);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(255, 255, 255);
-  doc.text("MODULAR MOON", pageW - 80, lineY + 5, { align: "center" });
+  doc.text("MODULAR MOON SANTIAGO", pageW - 80, lineY + 5, { align: "center" });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(160, 160, 160);
-  doc.text("Amsterdam • The Netherlands", pageW - 80, lineY + 9, { align: "center" });
+  doc.text("Coordinación Académica", pageW - 80, lineY + 9, { align: "center" });
 
-  // Descargar archivo PDF
-  const filename = `Certificado_Sintesis_Modular_${record.studentName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+  // Descargar archivo PDF con nombre descriptivo de comprobante de examen
+  const filename = `Comprobante_Examen_Teorico_${record.studentName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
   doc.save(filename);
 }
 
@@ -978,7 +987,7 @@ function openPrintableCertificate(record) {
   });
   const printWindow = window.open('', '_blank');
   if (!printWindow) {
-    alert("Por favor habilita las ventanas emergentes para generar el certificado.");
+    alert("Por favor habilita las ventanas emergentes para generar el comprobante.");
     return;
   }
   printWindow.document.write(`
@@ -986,40 +995,42 @@ function openPrintableCertificate(record) {
     <html lang="es">
     <head>
       <meta charset="UTF-8">
-      <title>Certificado — ${record.studentName}</title>
+      <title>Comprobante Examen Teórico — ${record.studentName}</title>
       <style>
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 20mm; background: #111; color: #fff; font-family: 'Helvetica Neue', Arial, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; box-sizing: border-box; }
-        .cert-card { border: 2px solid #EFFF1A; outline: 1px solid #f9e750; padding: 30px; text-align: center; width: 100%; max-width: 900px; box-sizing: border-box; }
-        h1 { color: #fff; font-size: 2.2rem; margin: 15px 0 5px; }
-        h2 { color: #f9e750; font-size: 1.1rem; margin-bottom: 20px; }
-        .student { color: #EFFF1A; font-size: 2rem; font-weight: bold; border-bottom: 2px solid #EFFF1A; display: inline-block; padding: 0 20px 5px; margin: 15px 0; }
-        .desc { font-size: 0.95rem; color: #ccc; max-width: 650px; margin: 0 auto 25px; line-height: 1.5; }
-        .metrics { background: #222; border: 1px solid #444; padding: 12px; margin-bottom: 30px; display: flex; justify-content: space-around; font-size: 0.85rem; color: #EFFF1A; font-family: monospace; }
-        .signatures { display: flex; justify-content: space-between; margin-top: 20px; font-size: 0.8rem; color: #aaa; }
+        .cert-card { border: 2px solid #EFFF1A; outline: 1px solid #f9e750; padding: 28px; text-align: center; width: 100%; max-width: 900px; box-sizing: border-box; }
+        h1 { color: #fff; font-size: 2rem; margin: 12px 0 4px; }
+        h2 { color: #f9e750; font-size: 1.05rem; margin-bottom: 16px; }
+        .student { color: #EFFF1A; font-size: 1.8rem; font-weight: bold; border-bottom: 2px solid #EFFF1A; display: inline-block; padding: 0 20px 4px; margin: 12px 0; }
+        .desc { font-size: 0.9rem; color: #ccc; max-width: 650px; margin: 0 auto 18px; line-height: 1.5; }
+        .metrics { background: #222; border: 1px solid #444; padding: 10px; margin-bottom: 18px; display: flex; justify-content: space-around; font-size: 0.85rem; color: #EFFF1A; font-family: monospace; }
+        .disclaimer { font-size: 0.78rem; color: #888; font-style: italic; margin-bottom: 22px; }
+        .signatures { display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.8rem; color: #aaa; }
         .sig-block { border-top: 1px solid #666; width: 220px; padding-top: 6px; }
         @media print { body { background: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
       </style>
     </head>
     <body>
       <div class="cert-card">
-        <div style="color: #EFFF1A; font-weight: bold; font-size: 0.9rem; letter-spacing: 0.05em;">MAKE NOISE LAB • MODULAR MOON SANTIAGO</div>
-        <div style="font-size: 0.75rem; color: #888; margin-top: 2px;">SEDE CHILENA DE MODULAR MOON AMSTERDAM</div>
-        <h1>CERTIFICADO DE APROBACIÓN</h1>
-        <h2>DIPLOMADO EN SÍNTESIS MODULAR</h2>
-        <div style="color: #bbb; font-size: 0.9rem;">Por cuanto se certifica que:</div>
+        <div style="color: #EFFF1A; font-weight: bold; font-size: 0.85rem; letter-spacing: 0.05em;">MAKE NOISE LAB • MODULAR MOON SANTIAGO</div>
+        <div style="font-size: 0.75rem; color: #888; margin-top: 2px;">REGISTRO ACADÉMICO OFICIAL</div>
+        <h1>COMPROBANTE DE APROBACIÓN</h1>
+        <h2>EXAMEN TEÓRICO DE SÍNTESIS MODULAR</h2>
+        <div style="color: #bbb; font-size: 0.85rem;">Se deja constancia de que el/la estudiante:</div>
         <div class="student">${record.studentName.toUpperCase()}</div>
-        <div class="desc">Ha aprobado exitosamente la Evaluación Teórica de Síntesis Modular, demostrando dominio en control de voltaje (CV/Gate), arquitectura de sistemas Eurorack, modulación analógica y diseño sonoro.</div>
+        <div class="desc">Ha rendido y aprobado la Evaluación Teórica del Diplomado en Síntesis Modular, acreditando dominio en control de voltaje (CV/Gate), arquitectura de sistemas Eurorack, modulación y síntesis sustractiva.</div>
         <div class="metrics">
           <span>PUNTAJE: ${record.score} / ${record.totalPoints} PTS (${record.percentage}%)</span>
-          <span>ESTADO: APROBADO</span>
+          <span>ESTADO: EXAMEN TEÓRICO APROBADO</span>
           <span>FOLIO: ${record.id}</span>
           <span>FECHA: ${dateFormatted}</span>
         </div>
+        <div class="disclaimer">* Este documento certifica la aprobación de la fase teórica. La titulación y diploma final del Diplomado se confieren tras la presentación del Live Set.</div>
         <div class="signatures">
-          <div class="sig-block"><strong style="color: #fff;">MAKE NOISE LAB</strong><br>Dirección Académica Santiago</div>
-          <div style="align-self: center; color: #EFFF1A; font-weight: bold;">★ ACREDITADO ★</div>
-          <div class="sig-block"><strong style="color: #fff;">MODULAR MOON</strong><br>Amsterdam • The Netherlands</div>
+          <div class="sig-block"><strong style="color: #fff;">MAKE NOISE LAB</strong><br>Evaluación Teórica Santiago</div>
+          <div style="align-self: center; color: #EFFF1A; font-weight: bold;">★ EXAMEN APROBADO ★</div>
+          <div class="sig-block"><strong style="color: #fff;">MODULAR MOON SANTIAGO</strong><br>Coordinación Académica</div>
         </div>
       </div>
       <script>window.onload = function() { window.print(); };</script>
