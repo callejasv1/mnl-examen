@@ -16,11 +16,15 @@ Aplicación web interactiva brutalista diseñada para enviar por **WhatsApp** a 
    - Formulario brutalista minimalista (*Underline style* con foco amarillo neón).
 
 2. **Evaluación Pedagógica**:
-   - 13 preguntas técnicas y de ruteo extraídas de `Examen Teorico MNL-MM 2026.docx`.
-   - Incluye las 8 imágenes oficiales de módulos Eurorack Doepfer, parches VCV Rack y esquemas de modulación FM/AM.
+   - El banco de preguntas (`questions.js`) se alterna con el flag `EXAM_MODE`:
+     `fundamentos` (formativo), `avanzado` (técnico original) o `completo`
+     (ambos; **modo activo por defecto**). El nº de preguntas, el puntaje y el
+     mínimo de aprobación se calculan en tiempo de ejecución, nunca hardcodeados.
+   - Incluye diagramas de módulos Eurorack Doepfer, parches VCV Rack y
+     esquemas de modulación FM/AM, formas de onda, ADSR, S&H y filtros.
    - Las preguntas abiertas fueron convertidas a selección múltiple técnica para calificación automática instantánea.
-   - Incluye las preguntas temáticas de rigor (*"¿A qué suena el cable MIDI?"* y *"Nudos náuticos para ordenar los patch cables"*).
-   - **Exigencia mínima de aprobación:** **70%** (10 o más puntos requeridos).
+   - Incluye preguntas bonus de humor/cultura (*"¿A qué suena el cable MIDI?"*, *"Nudos náuticos"*, *"un parche nunca se termina"*); nunca puntúan.
+   - **Exigencia mínima de aprobación:** **70%** del puntaje técnico.
    - Visor Lightbox para ampliar cualquier esquema en pantalla completa desde el celular.
 
 3. **Audio Analógico Interactivo (Web Audio API)**:
@@ -61,6 +65,6 @@ Y abre en tu navegador: [http://localhost:8080](http://localhost:8080)
 
 1. Abre una hoja nueva en [Google Sheets](https://sheets.new).
 2. Ve a **Extensiones > Apps Script**.
-3. Pega el código de [google_apps_script.js](file:///Users/ecallejasp/Documents/mnl_test/google_apps_script.js).
+3. Pega el código de [google_apps_script.js](google_apps_script.js).
 4. Haz clic en **Implementar > Nueva implementación > Aplicación web** (Acceso: *Cualquier usuario*).
 5. Copia la URL generada y pégala en el pie de página de la web app en **[ PANEL DOCENTE / BBDD ]** o en `questions.js` (`webhookUrl`).

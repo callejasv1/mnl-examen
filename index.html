@@ -10,10 +10,11 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#000000">
 
-  <!-- Open Graph / WhatsApp Preview -->
+  <!-- Open Graph / WhatsApp Preview (URLs absolutas: WhatsApp no resuelve rutas relativas) -->
   <meta property="og:title" content="Examen Teórico — Diplomado Síntesis Modular | Make Noise Lab">
   <meta property="og:description" content="Evaluación teórica oficial del Diplomado en Síntesis Modular. Exigencia de aprobación: 70%.">
-  <meta property="og:image" content="assets/logos/logo-mnl-principal.png">
+  <meta property="og:url" content="https://callejasv1.github.io/mnl-examen/">
+  <meta property="og:image" content="https://callejasv1.github.io/mnl-examen/assets/logos/logo-mnl-principal.png">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
 
@@ -23,6 +24,7 @@
   <!-- Local Fonts Preload (Idéntico a makenoiselab.cl/diplomado) -->
   <link rel="preload" href="assets/fonts/built-titling-rg.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/built-titling-sb.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/built-titling-bd.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/myriad-pro-rg.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/aktiv-grotesk-rg.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -71,7 +73,7 @@
     <!-- VU-Meter Progress (visible during quiz) -->
     <div class="vu-wrapper" id="vuProgressWrapper" style="display: none;" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progreso de la evaluación">
       <div class="vu-header">
-        <span id="progressLabel" style="color: var(--neon-yellow);">PARCHE 01 / 13</span>
+        <span id="progressLabel" style="color: var(--neon-yellow);">PARCHE -- / --</span>
         <span id="percentageLabel" style="color: #fff;">0% COMPLETADO</span>
       </div>
       <div class="vu-slot" aria-hidden="true">
@@ -90,9 +92,9 @@
       <div class="welcome-section">
         <div class="welcome-container">
 
-          <!-- Modular Moon badge — Sello oficial de alta resolución en fondo #202020 -->
+          <!-- Modular Moon badge — Sello oficial (PNG con transparencia, sin caja blanca sobre #202020) -->
           <div class="mm-badge-row anim-fade-up">
-            <img src="assets/logos/logo-modular-moon-sello.jpg" alt="Sello de calidad oficial de la escuela de síntesis Modular Moon" class="mm-badge-logo">
+            <img src="assets/logos/logo-modular-moon-transparent.png" alt="Sello de calidad oficial de la escuela de síntesis Modular Moon" class="mm-badge-logo">
           </div>
 
           <!-- Descripción institucional — estilo font-aktiv del diplomado -->
@@ -114,15 +116,15 @@
           <!-- Métricas -->
           <div class="metrics-grid anim-fade-up delay-300" role="region" aria-label="Métricas del examen">
             <div class="metric-box">
-              <span class="metric-val" id="metricPointsVal" style="color: var(--neon-yellow);">23 PTS</span>
-              <span class="metric-label" id="metricPointsLabel">TÉCNICOS (+3 BONUS)</span>
+              <span class="metric-val" id="metricPointsVal" style="color: var(--neon-yellow);">-- PTS</span>
+              <span class="metric-label" id="metricPointsLabel">TÉCNICOS (+ -- BONUS)</span>
             </div>
             <div class="metric-box">
               <span class="metric-val" id="metricPassingRate" style="color: var(--neon-pink);">70%</span>
               <span class="metric-label">EXIGENCIA CORTE</span>
             </div>
             <div class="metric-box">
-              <span class="metric-val" id="metricMinPass" style="color: #fff;">17 / 23</span>
+              <span class="metric-val" id="metricMinPass" style="color: #fff;">-- / --</span>
               <span class="metric-label">MÍNIMO APROBACIÓN</span>
             </div>
           </div>
@@ -173,7 +175,7 @@
           </form>
 
           <div class="info-terminal-note anim-fade-up delay-400">
-            <strong style="color: var(--neon-yellow);">ℹ</strong> Las 2 preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.
+            <strong style="color: var(--neon-yellow);">ℹ</strong> <span id="infoBonusNote">Las preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.</span>
           </div>
 
         </div>
@@ -213,7 +215,7 @@
             </div>
 
             <div class="diagram-frame" id="diagramFrame" style="display: none;">
-              <img id="questionImage" class="diagram-img" src="" alt="Diagrama Eurorack correspondiente a la pregunta" onclick="openLightbox(this.src)" tabindex="0" role="button" aria-label="Ampliar imagen">
+              <img id="questionImage" class="diagram-img" src="" alt="Diagrama Eurorack correspondiente a la pregunta" onclick="openLightbox(this.src)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this.src);}" tabindex="0" role="button" aria-label="Ampliar imagen">
             </div>
 
             <div class="diagram-toolbar">
@@ -264,8 +266,8 @@
           <div class="score-slab" role="region" aria-label="Puntaje obtenido">
             <div class="score-big" id="scorePercent">0%</div>
             <div class="score-meta">
-              <div id="scoreRatio">0 / 11 PUNTOS TÉCNICOS</div>
-              <div id="scoreFeedback" style="color: var(--text-zinc-400);">Exigencia mínima: 70% (8 pts)</div>
+              <div id="scoreRatio">0 / -- PUNTOS TÉCNICOS</div>
+              <div id="scoreFeedback" style="color: var(--text-zinc-400);">Exigencia mínima: 70%</div>
             </div>
           </div>
 

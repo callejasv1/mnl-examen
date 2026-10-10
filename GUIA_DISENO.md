@@ -298,8 +298,8 @@ El sitio cumple con pautas de accesibilidad **WCAG 2.1 AA**:
 ## ⚙️ 7. Flujo de Trabajo CSS (Tailwind CSS)
 
 ### Archivos Clave
-- **Configuración:** [`tailwind.config.js`](file:///Users/ecallejasp/mnl_website/tailwind.config.js)
-- **Directivas y Reglas Base:** [`src-css/main.css`](file:///Users/ecallejasp/mnl_website/src-css/main.css)
+- **Configuración:** `tailwind.config.js` *(vive en el repo del sitio principal, no en este)*
+- **Directivas y Reglas Base:** `src-css/main.css` *(vive en el repo del sitio principal, no en este)*
 - **CSS Compilado de Producción:** `assets/static/css/style.css` *(¡No editar este archivo manualmente!)*
 
 ### Comandos de Desarrollo

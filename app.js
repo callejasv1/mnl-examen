@@ -173,6 +173,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const minPassEl = document.getElementById('metricMinPass');
   if (minPassEl) minPassEl.textContent = `${minPass} / ${techCount}`;
 
+  const infoBonusEl = document.getElementById('infoBonusNote');
+  if (infoBonusEl) {
+    const plural = bonusCount === 1 ? 'pregunta' : 'preguntas';
+    infoBonusEl.textContent = `Las ${bonusCount} ${plural} de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.`;
+  }
+
+  if (EXAM_CONFIG.title) document.title = `${EXAM_CONFIG.title} — Make Noise Lab`;
+
   // Preload images
   preloadAllImages();
 
@@ -188,6 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
       initAudio();
       playSynthTone(587.33, 'triangle', 0.1);
     }
+  });
+
+  // Cerrar modales con Escape (WCAG 2.1)
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (elements.lightboxOverlay.classList.contains('active')) closeLightbox();
+    if (elements.adminModal.classList.contains('active')) closeAdminModal();
   });
 });
 
@@ -321,11 +336,13 @@ function renderQuestion(index) {
 
   // Options with WCAG accessibility
   elements.optionsContainer.innerHTML = '';
+  // Roving tabindex: solo la opción seleccionada (o la primera) es tabulable
+  const rovingIdx = state.answers[q.id] !== undefined ? state.answers[q.id] : 0;
   q.options.forEach((optText, optIdx) => {
     const isSelected = state.answers[q.id] === optIdx;
     const card = document.createElement('div');
     card.className = `option-card ${isSelected ? 'selected' : ''}`;
-    card.tabIndex = 0;
+    card.tabIndex = optIdx === rovingIdx ? 0 : -1;
     card.setAttribute('role', 'radio');
     card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
     card.setAttribute('aria-label', `Opción ${optIdx + 1}: ${optText}`);
@@ -335,6 +352,10 @@ function renderQuestion(index) {
     `;
 
     card.addEventListener('click', () => selectOption(q.id, optIdx));
+    card.addEventListener('focus', () => {
+      elements.optionsContainer.querySelectorAll('.option-card').forEach(c => { c.tabIndex = -1; });
+      card.tabIndex = 0;
+    });
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -576,6 +597,7 @@ function sendWhatsAppReceipt() {
   const record = getLatestSubmission();
   if (!record) return;
 
+  const bonusTotal = QUESTIONS.filter(q => q.isBonus).length;
   const statusText = record.passed ? '✅ APROBADO' : '❌ REPROBADO';
   const msg =
 `*Make Noise Lab — Examen Teórico Síntesis Modular* 🎛️
@@ -584,7 +606,7 @@ function sendWhatsAppReceipt() {
 📱 *Contacto:* ${record.studentWhatsapp}
 📊 *Puntaje:* ${record.score}/${record.totalPoints} pts (${record.percentage}%)
 🎯 *Resultado:* ${statusText} (Corte: ${EXAM_CONFIG.passingScorePercentage}%)
-🤡 *Bonus:* ${record.bonusCorrect}/2 preguntas de humor
+🤡 *Bonus:* ${record.bonusCorrect}/${bonusTotal} preguntas de humor
 📅 *Fecha:* ${new Date(record.completedAt).toLocaleString('es-CL')}
 
 _Make Noise Lab (makenoiselab.cl)_`;

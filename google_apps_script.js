@@ -56,7 +56,7 @@ function doPost(e) {
       data.whatsapp || "",
       data.email || "",
       data.puntaje !== undefined ? data.puntaje : 0,
-      data.total !== undefined ? data.total : 11,
+      data.total !== undefined ? data.total : 23,
       data.porcentaje || "0%",
       data.estado || "PENDIENTE",
       data.respuestas_json || "{}"
