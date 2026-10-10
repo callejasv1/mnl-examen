@@ -1,0 +1,1278 @@
+/**
+ * MAKE NOISE LAB — EXAMEN TEÓRICO DE SÍNTESIS MODULAR
+ * Sistema visual replicado con fidelidad desde www.makenoiselab.cl
+ * Brutalismo Industrial · Modular Moon Chile · WCAG 2.1 AA
+ */
+
+/* ==========================================================================
+   0. TIPOGRAFÍAS LOCALES (Built Titling, Myriad Pro, Aktiv Grotesk)
+   ========================================================================== */
+@font-face {
+  font-family: 'Built Titling RG';
+  src: url('assets/fonts/built-titling-rg.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Built Titling RG';
+  src: url('assets/fonts/built-titling-sb.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Built Titling RG';
+  src: url('assets/fonts/built-titling-bd.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Myriad Pro';
+  src: url('assets/fonts/myriad-pro-rg.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aktiv Grotesk';
+  src: url('assets/fonts/aktiv-grotesk-rg.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   1. TOKENS Y VARIABLES DE DISEÑO
+   ========================================================================== */
+:root {
+  --neon-yellow: #EFFF1A;
+  --neon-pink: #FF3399;
+  --gold-warm: #f9e750;
+  --brand-dark: #1D1D1D;
+  --brand-gray: #E2E2E2;
+  --bg-black: #000000;
+  --bg-section: #202020;
+  --bg-content: #1a1a1a;
+  --border-zinc: #27272a;
+  --text-zinc-300: #d4d4d8;
+  --text-zinc-400: #a1a1aa;
+  --text-zinc-500: #71717a;
+
+  --font-built: 'Built Titling RG', sans-serif;
+  --font-anton: 'Anton', sans-serif;
+  --font-aktiv: 'Aktiv Grotesk', sans-serif;
+  --font-myriad: 'Myriad Pro', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Outfit', sans-serif;
+
+  --shadow-neon-yellow: 0 0 15px rgba(239, 255, 26, 0.2), 0 0 30px rgba(239, 255, 26, 0.1);
+  --shadow-neon-pink: 0 0 15px rgba(255, 51, 153, 0.2), 0 0 30px rgba(255, 51, 153, 0.1);
+  --transition-base: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. RESET Y REGLAS GLOBALES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-zinc-300);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeSpeed;
+}
+
+::selection {
+  background-color: var(--neon-yellow);
+  color: #000000;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Screen Reader Only (WCAG) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Skip-to-content (WCAG 2.4.1) — idéntico al sitio web */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 12px 24px;
+  background: var(--neon-yellow);
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+.skip-to-content:focus {
+  left: 0;
+}
+
+/* Focus Visible (WCAG 2.4.7) — idéntico al sitio web */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--neon-yellow);
+  outline-offset: 2px;
+}
+
+/* Neon glow text */
+.neon-glow-yellow {
+  text-shadow: 0 0 10px rgba(239, 255, 26, 0.4);
+}
+
+/* Font utility classes — matching the web site */
+.font-built { font-family: var(--font-built); }
+.font-anton { font-family: var(--font-anton); }
+.font-aktiv { font-family: var(--font-aktiv); }
+.font-myriad { font-family: var(--font-myriad); }
+.font-mono { font-family: var(--font-mono); }
+.font-sans { font-family: var(--font-sans); }
+
+/* ==========================================================================
+   3. NAVBAR — Réplica exacta del sitio (sticky, bg-black, h-72px)
+   ========================================================================== */
+.mnl-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg-black);
+  border-bottom: 1px solid #18181b;
+}
+.navbar-container {
+  max-width: 80rem; /* max-w-7xl */
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.navbar-brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.3s;
+  flex-shrink: 0;
+}
+.navbar-brand-link:hover {
+  opacity: 0.8;
+}
+.mnl-main-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Diplomado nav link with MM yellow isotipo */
+.navbar-diplomado-link {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-built);
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.navbar-diplomado-link:hover {
+  color: var(--neon-yellow);
+}
+.nav-iso-img {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Sound toggle — hardware square button */
+.hw-square-btn {
+  background: transparent;
+  border: 1px solid var(--border-zinc);
+  color: var(--brand-gray);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s var(--transition-base);
+}
+.hw-square-btn:hover {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+/* VU-Meter — integrated progress */
+.vu-wrapper {
+  background: #0a0a0a;
+  border-top: 1px solid #18181b;
+  padding: 8px 1rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+.vu-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.vu-slot {
+  height: 6px;
+  background: #18181b;
+  position: relative;
+}
+.vu-charge {
+  height: 100%;
+  width: 0%;
+  background: var(--neon-yellow);
+  box-shadow: 0 0 8px rgba(239, 255, 26, 0.4);
+  transition: width 0.3s var(--transition-base);
+}
+
+/* ==========================================================================
+   4. LAYOUT PRINCIPAL
+   ========================================================================== */
+.app-wrapper {
+  width: 100%;
+  flex: 1;
+}
+
+.screen {
+  display: none;
+}
+.screen.active {
+  display: block;
+}
+
+/* ==========================================================================
+   5. PANTALLA DE BIENVENIDA — Estilo Diplomado (bg-[#202020])
+   ========================================================================== */
+.welcome-section {
+  background: var(--bg-section);
+  padding: 4rem 0 3rem;
+}
+.welcome-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Modular Moon badge + description */
+.mm-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.mm-badge-logo {
+  height: 4.5rem;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+/* H1 principal — estilo font-anton text-[#f9e750] del diplomado */
+.exam-main-title {
+  font-family: var(--font-anton);
+  font-size: 2.25rem;
+  color: var(--gold-warm);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+/* Section headers — estilo font-built del diplomado */
+.section-heading {
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #ffffff;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* Body text — estilo font-aktiv del diplomado */
+.body-text {
+  font-family: var(--font-aktiv);
+  color: var(--brand-gray);
+  font-size: 1rem;
+  line-height: 1.625;
+  opacity: 0.9;
+  text-align: justify;
+}
+
+/* Metrics row — stacked info */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--border-zinc);
+  background: #0a0a0a;
+}
+.metric-box {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border-right: 1px solid var(--border-zinc);
+}
+.metric-box:last-child {
+  border-right: none;
+}
+.metric-val {
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-zinc-400);
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   6. FORMULARIO BRUTALISTA — Underline Style (idéntico al sitio)
+   ========================================================================== */
+.brutalist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 1.5rem 0 1rem;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.form-label {
+  font-family: var(--font-built);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+.brutalist-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #333333;
+  color: #ffffff;
+  font-family: var(--font-aktiv);
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.brutalist-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+.brutalist-input:focus {
+  border-bottom-color: var(--neon-yellow);
+}
+.input-error-msg {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--neon-pink);
+  margin-top: 4px;
+}
+
+/* Preload status */
+.preload-status-bar {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-zinc-400);
+  border-top: 1px solid var(--border-zinc);
+  margin-top: 1rem;
+}
+
+/* Info note — border-left accent */
+.info-terminal-note {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(239, 255, 26, 0.05);
+  border-left: 4px solid var(--neon-yellow);
+  font-family: var(--font-aktiv);
+  font-size: 0.875rem;
+  color: var(--brand-gray);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   7. BOTONES — Réplica exacta del sistema del sitio web
+   ========================================================================== */
+
+/* CTA Primario Amarillo — bg-[#EFFF1A] text-black font-built */
+.btn-cta-yellow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--neon-yellow);
+  color: #000000;
+  border: none;
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: all 0.15s var(--transition-base);
+}
+.btn-cta-yellow:hover {
+  filter: brightness(1.1);
+}
+.btn-cta-yellow:active {
+  transform: translateY(1px);
+}
+.btn-cta-yellow:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* CTA Secundario — bg-[#E2E2E2] text-[#1a1a1a] font-built */
+.btn-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--bg-content);
+  color: var(--brand-gray);
+  border: 1px solid var(--border-zinc);
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 0.15s var(--transition-base);
+}
+.btn-cta-secondary:hover {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+/* WhatsApp */
+.btn-cta-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: #25D366;
+  color: #000000;
+  border: none;
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+  transition: filter 0.15s;
+}
+.btn-cta-whatsapp:hover {
+  filter: brightness(1.1);
+}
+
+/* Danger */
+.btn-cta-danger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
+  font-family: var(--font-built);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-cta-danger:hover {
+  background: var(--neon-pink);
+  color: #ffffff;
+}
+
+/* Certificado Oficial (Aprobados) */
+.btn-cta-cert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: linear-gradient(135deg, #efff1a 0%, #00e5ff 100%);
+  color: #000000;
+  border: 1px solid var(--neon-yellow);
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 16px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(239, 255, 26, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-cta-cert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(0, 229, 255, 0.5);
+  filter: brightness(1.08);
+}
+.btn-cta-cert:active {
+  transform: translateY(0);
+}
+
+/* Pulsación de reintento para alumnos que reprobaron */
+.btn-retry-pulse {
+  animation: pulse-retry 2.5s infinite;
+  box-shadow: 0 0 16px rgba(239, 255, 26, 0.45);
+}
+@keyframes pulse-retry {
+  0% {
+    box-shadow: 0 0 10px rgba(239, 255, 26, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(239, 255, 26, 0.75);
+    border-color: #ffffff;
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(239, 255, 26, 0.3);
+  }
+}
+
+/* ==========================================================================
+   8. QUIZ — Preguntas y Alternativas
+   ========================================================================== */
+.quiz-section {
+  background: var(--bg-section);
+  padding: 2rem 0 3rem;
+  min-height: 80vh;
+}
+.quiz-container {
+  max-width: 56rem; /* max-w-4xl */
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.question-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.badge-rect {
+  font-weight: 700;
+  padding: 2px 8px;
+  letter-spacing: 0.05em;
+  background: var(--neon-yellow);
+  color: #000000;
+}
+.badge-bonus {
+  background: var(--neon-pink) !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 14px rgba(255, 51, 153, 0.45);
+}
+.points-label {
+  color: var(--text-zinc-400);
+  transition: all 0.2s ease;
+}
+.points-label.points-bonus {
+  color: var(--neon-pink) !important;
+  font-weight: 700 !important;
+  background: rgba(255, 51, 153, 0.12);
+  border: 1px solid rgba(255, 51, 153, 0.4);
+  padding: 2px 8px;
+}
+
+/* Banner de Alerta para Preguntas BONUS */
+.bonus-alert-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(255, 51, 153, 0.15) 0%, rgba(20, 20, 20, 0.95) 100%);
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 51, 153, 0.3);
+  padding: 12px 16px;
+  margin-bottom: 1.25rem;
+  animation: pulseBonusBorder 3s ease-in-out infinite;
+}
+@keyframes pulseBonusBorder {
+  0%, 100% { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 51, 153, 0.25); }
+  50% { border-color: #ff66b2; box-shadow: 0 0 25px rgba(255, 51, 153, 0.5); }
+}
+.bonus-alert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.bonus-alert-tag {
+  background: var(--neon-pink);
+  color: #000000;
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+.bonus-alert-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #ffffff;
+  background: #000000;
+  border: 1px solid var(--neon-pink);
+  padding: 2px 8px;
+  font-weight: 700;
+}
+.bonus-alert-desc {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #e4e4e7;
+  line-height: 1.45;
+}
+.bonus-alert-desc strong {
+  color: var(--neon-pink);
+  font-weight: 700;
+}
+
+/* Modificador de tarjeta cuando la pregunta es BONUS */
+.quiz-container.is-bonus-card {
+  border-top: 3px solid var(--neon-pink) !important;
+  box-shadow: 0 0 30px rgba(255, 51, 153, 0.15);
+}
+.quiz-container.is-bonus-card .option-btn.selected {
+  border-color: var(--neon-pink) !important;
+  background: rgba(255, 51, 153, 0.08) !important;
+}
+.quiz-container.is-bonus-card .option-btn.selected .option-radio-dot {
+  background: var(--neon-pink) !important;
+}
+
+.question-heading {
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: 0.025em;
+  margin-bottom: 1.5rem;
+}
+
+/* Diagram Viewer */
+.diagram-viewer {
+  margin-bottom: 1.5rem;
+  background: #0a0a0a;
+  border: 1px solid var(--border-zinc);
+  min-height: 180px;
+}
+.diagram-loading-box {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+}
+.diagram-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #333;
+  border-top-color: var(--neon-yellow);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.diagram-frame {
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #080808;
+  cursor: pointer;
+  min-height: 180px;
+}
+.diagram-img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.diagram-img.loaded {
+  opacity: 1;
+}
+.diagram-toolbar {
+  background: var(--bg-content);
+  border-top: 1px solid var(--border-zinc);
+  padding: 6px 14px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+/* Options (Alternativas) */
+.options-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.options-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.option-card {
+  background: var(--bg-content);
+  border: 1px solid var(--border-zinc);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+  user-select: none;
+  min-height: 48px;
+}
+.option-card:hover {
+  border-color: #52525b;
+  background: #262626;
+}
+.option-card.selected {
+  border: 2px solid var(--neon-yellow);
+  background: rgba(239, 255, 26, 0.06);
+}
+.option-square {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #52525b;
+  background: transparent;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: all 0.15s;
+}
+.option-card.selected .option-square {
+  border-color: var(--neon-yellow);
+  background: var(--neon-yellow);
+}
+.option-text {
+  font-family: var(--font-aktiv);
+  font-size: 0.95rem;
+  color: var(--brand-gray);
+  line-height: 1.4;
+}
+.option-card.selected .option-text {
+  color: #ffffff;
+}
+
+/* Nav controls */
+.nav-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   9. RESULTADOS
+   ========================================================================== */
+.result-section {
+  background: var(--bg-section);
+  padding: 3rem 0;
+}
+.result-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.verdict-banner {
+  text-align: center;
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid var(--border-zinc);
+}
+.verdict-tag {
+  display: inline-block;
+  font-family: var(--font-built);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 20px;
+}
+.verdict-tag.pass {
+  background: var(--neon-yellow);
+  color: #000000;
+}
+.verdict-tag.fail {
+  background: var(--neon-pink);
+  color: #ffffff;
+}
+
+.score-slab {
+  background: #0a0a0a;
+  border: 1px solid var(--border-zinc);
+  margin: 1.5rem 0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.score-big {
+  font-family: var(--font-anton);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--neon-yellow);
+}
+.score-big.fail {
+  color: var(--neon-pink);
+}
+.score-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-zinc-400);
+}
+
+.sync-indicator {
+  background: #0a0a0a;
+  border: 1px solid var(--border-zinc);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-zinc-400);
+}
+.sync-indicator.success {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+.results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.dual-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Review accordion */
+.review-accordion-wrap {
+  border: 1px solid var(--border-zinc);
+  background: #0a0a0a;
+}
+.review-details {
+  border: none;
+}
+.review-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--bg-content);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-family: var(--font-built);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: 0.025em;
+}
+.review-summary::-webkit-details-marker {
+  display: none;
+}
+.toggle-cross {
+  font-size: 1.5rem;
+  font-family: var(--font-built);
+  transition: transform 0.2s;
+}
+.review-details[open] .toggle-cross {
+  transform: rotate(45deg);
+}
+.review-content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.review-item {
+  background: var(--bg-content);
+  border: 1px solid var(--border-zinc);
+  padding: 14px 16px;
+}
+.review-item.correct {
+  border-left: 4px solid var(--neon-yellow);
+}
+.review-item.incorrect {
+  border-left: 4px solid var(--neon-pink);
+}
+.review-item.bonus {
+  border-left: 4px solid var(--neon-pink);
+  background: rgba(255, 51, 153, 0.04);
+}
+.review-item.bonus .review-q-num {
+  color: var(--neon-pink);
+  font-weight: 700;
+}
+.review-q-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #71717a;
+}
+.review-q-text {
+  font-family: var(--font-built);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 6px 0 10px;
+  color: #ffffff;
+}
+.review-ans-row {
+  font-family: var(--font-aktiv);
+  font-size: 0.88rem;
+  margin: 4px 0;
+}
+.review-ans-row.student { color: #d4d4d8; }
+.review-ans-row.student.student-wrong {
+  color: #fca5a5;
+  text-decoration: line-through;
+  opacity: 0.85;
+}
+.review-ans-row.correct-ans { color: var(--neon-yellow); font-weight: 500; }
+.review-ans-row.locked-msg {
+  color: #a1a1aa;
+  font-size: 0.84rem;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-left: 2px solid #52525b;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+.review-explanation {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #0a0a0a;
+  border-left: 2px solid #52525b;
+  font-family: var(--font-aktiv);
+  font-size: 0.82rem;
+  color: var(--text-zinc-400);
+  line-height: 1.45;
+}
+.review-explanation.locked {
+  background: rgba(24, 24, 27, 0.6);
+  border-left: 2px solid #3f3f46;
+  color: #71717a;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   10. FOOTER — Réplica exacta (3 columnas, franja fucsia 8px)
+   ========================================================================== */
+.footer-neon-stripe {
+  height: 8px;
+  background: var(--neon-pink);
+  width: 100%;
+}
+.site-footer {
+  background: var(--bg-black);
+  padding-bottom: 1rem;
+}
+.footer-grid {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.footer-col-logo {
+  display: flex;
+  flex-direction: column;
+}
+.footer-logo-img {
+  width: 4rem;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.footer-col-text {
+  font-size: 0.875rem;
+  color: var(--text-zinc-400);
+}
+.footer-col-heading {
+  font-family: var(--font-mono);
+  color: var(--neon-yellow);
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.footer-col a {
+  color: var(--text-zinc-400);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-col a:hover {
+  color: var(--neon-yellow);
+}
+.footer-col a.hover-pink:hover {
+  color: var(--neon-pink);
+}
+.footer-bottom {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 0;
+  border-top: 1px solid var(--border-zinc);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-zinc-500);
+}
+.admin-trigger-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-zinc-500);
+  transition: color 0.15s;
+}
+.admin-trigger-link:hover {
+  color: var(--neon-yellow);
+}
+
+/* ==========================================================================
+   11. MODALES — Lightbox y Panel Docente
+   ========================================================================== */
+.lightbox-shade,
+.admin-shade {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.lightbox-shade.active,
+.admin-shade.active {
+  display: flex;
+}
+.lightbox-modal {
+  max-width: 95vw;
+  max-height: 90vh;
+  background: #111;
+  border: 2px solid var(--neon-yellow);
+  padding: 12px;
+}
+.lightbox-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.lightbox-media {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+.close-square-btn {
+  background: transparent;
+  border: 1px solid var(--border-zinc);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.close-square-btn:hover {
+  background: var(--neon-pink);
+  border-color: var(--neon-pink);
+}
+.admin-window {
+  background: var(--brand-dark);
+  border: 2px solid var(--border-zinc);
+  width: 100%;
+  max-width: 520px;
+  padding: 20px;
+}
+.admin-window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-built);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #ffffff;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-zinc);
+  margin-bottom: 14px;
+}
+.admin-window-body {
+  font-family: var(--font-aktiv);
+  font-size: 0.875rem;
+}
+.admin-metric-row {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border: 1px solid var(--border-zinc);
+  padding: 12px;
+  margin-bottom: 1rem;
+  background: #0a0a0a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-zinc-400);
+}
+.admin-buttons-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   12. ANIMACIONES (fade-up on scroll) — idénticas al sitio
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .anim-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+  .delay-400 { transition-delay: 400ms; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ==========================================================================
+   13. RESPONSIVE
+   ========================================================================== */
+@media (min-width: 640px) {
+  .navbar-container { padding: 0 1.5rem; }
+}
+
+@media (min-width: 768px) {
+  .mnl-main-logo { height: 40px; }
+  .navbar-diplomado-link { display: flex; }
+  .mm-badge-logo { height: 5.75rem; }
+  .exam-main-title { font-size: 3.25rem; }
+  .section-heading { font-size: 1.5rem; }
+  .body-text { font-size: 1.125rem; }
+  .question-heading { font-size: 1.5rem; }
+  .footer-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .navbar-container { padding: 0 2rem; }
+  .mm-badge-logo { height: 6.5rem; }
+  .exam-main-title { font-size: 4rem; }
+  .section-heading { font-size: 1.6rem; }
+}

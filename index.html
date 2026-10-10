@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Examen Teórico — Diplomado en Síntesis Modular | Make Noise Lab</title>
+
+  <!-- SEO & Meta -->
+  <meta name="description" content="Evaluación teórica oficial del Diplomado en Síntesis Modular de Make Noise Lab, sede chilena de Modular Moon. Eurorack, VCV Rack, FM y más.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:title" content="Examen Teórico — Diplomado Síntesis Modular | Make Noise Lab">
+  <meta property="og:description" content="Evaluación teórica oficial del Diplomado en Síntesis Modular. Exigencia de aprobación: 70%.">
+  <meta property="og:image" content="assets/logos/logo-mnl-principal.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logos/isotipo-mnl-geometrico.png">
+
+  <!-- Local Fonts Preload (Idéntico a makenoiselab.cl/diplomado) -->
+  <link rel="preload" href="assets/fonts/built-titling-rg.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/built-titling-sb.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/myriad-pro-rg.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/aktiv-grotesk-rg.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- Google Fonts (Anton, Outfit, Space Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+  </noscript>
+
+  <!-- Local fonts and styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip-to-content (WCAG 2.4.1) -->
+  <a href="#main-content" class="skip-to-content">Saltar al contenido</a>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVBAR — Réplica exacta de makenoiselab.cl
+       (Logo izquierda, controles derecha, sticky, bg-black, h-72px)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <nav class="mnl-navbar" aria-label="Navegación principal">
+    <div class="navbar-container">
+      <a href="https://makenoiselab.cl" target="_blank" rel="noopener" class="navbar-brand-link" aria-label="Sitio web oficial de Make Noise Lab">
+        <img src="assets/logos/logo-mnl-horizontal.png" alt="Make Noise Lab" class="mnl-main-logo">
+      </a>
+
+      <div class="navbar-right">
+        <a href="https://makenoiselab.cl/diplomado/" target="_blank" rel="noopener" class="navbar-diplomado-link" aria-label="Sitio oficial del Diplomado">
+          <img src="assets/logos/isotipo-modular-moon.png" alt="" aria-hidden="true" class="nav-iso-img">
+          <span>Diplomado</span>
+        </a>
+        <button id="soundToggleBtn" class="hw-square-btn" title="Audio On/Off" aria-label="Activar o silenciar audio" aria-pressed="true">
+          <span id="soundIcon" aria-hidden="true">🔊</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- VU-Meter Progress (visible during quiz) -->
+    <div class="vu-wrapper" id="vuProgressWrapper" style="display: none;" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progreso de la evaluación">
+      <div class="vu-header">
+        <span id="progressLabel" style="color: var(--neon-yellow);">PARCHE 01 / 13</span>
+        <span id="percentageLabel" style="color: #fff;">0% COMPLETADO</span>
+      </div>
+      <div class="vu-slot" aria-hidden="true">
+        <div class="vu-charge" id="vuFill"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════════════ -->
+  <main class="app-wrapper" id="main-content">
+
+    <!-- ═══════════════ PANTALLA 1: BIENVENIDA ═══════════════ -->
+    <section class="screen active" id="welcomeScreen" aria-labelledby="examMainHeading">
+      <div class="welcome-section">
+        <div class="welcome-container">
+
+          <!-- Modular Moon badge — Sello oficial de alta resolución en fondo #202020 -->
+          <div class="mm-badge-row anim-fade-up">
+            <img src="assets/logos/logo-modular-moon-sello.jpg" alt="Sello de calidad oficial de la escuela de síntesis Modular Moon" class="mm-badge-logo">
+          </div>
+
+          <!-- Descripción institucional — estilo font-aktiv del diplomado -->
+          <div class="body-text anim-fade-up delay-100" style="margin-bottom: 1.5rem;">
+            <p><strong>Modular Moon</strong> es una escuela internacional dedicada a la enseñanza de síntesis modular, diseño sonoro y tecnologías avanzadas de producción musical, con su casa matriz en <em>Ámsterdam</em> 🇳🇱. En conjunto con <strong>Make Noise Lab</strong> en Santiago de Chile, esta evaluación certifica las competencias teóricas y prácticas en síntesis Eurorack, ruteo de voltaje de control y síntesis analógica.</p>
+          </div>
+
+          <!-- H1 Principal — estilo font-anton text-[#f9e750] del diplomado -->
+          <h1 class="exam-main-title anim-fade-up delay-200" id="examMainHeading">
+            Examen Teórico de Síntesis Modular
+          </h1>
+
+          <!-- Sección de reglas — estilo font-built del diplomado -->
+          <h2 class="section-heading anim-fade-up delay-200">Reglas de la evaluación</h2>
+          <div class="body-text anim-fade-up delay-300" style="margin-bottom: 0.5rem;">
+            <p id="examRulesSummary">Preguntas técnicas de selección múltiple + preguntas bonus de humor (sin puntaje).</p>
+          </div>
+
+          <!-- Métricas -->
+          <div class="metrics-grid anim-fade-up delay-300" role="region" aria-label="Métricas del examen">
+            <div class="metric-box">
+              <span class="metric-val" id="metricPointsVal" style="color: var(--neon-yellow);">23 PTS</span>
+              <span class="metric-label" id="metricPointsLabel">TÉCNICOS (+3 BONUS)</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val" id="metricPassingRate" style="color: var(--neon-pink);">70%</span>
+              <span class="metric-label">EXIGENCIA CORTE</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val" id="metricMinPass" style="color: #fff;">17 / 23</span>
+              <span class="metric-label">MÍNIMO APROBACIÓN</span>
+            </div>
+          </div>
+
+          <!-- Formulario Brutalista — underline style idéntico al sitio -->
+          <form id="studentForm" class="brutalist-form anim-fade-up delay-400" novalidate onsubmit="event.preventDefault(); startExam();">
+
+            <div class="form-field">
+              <label class="form-label" for="studentName">
+                NOMBRE Y APELLIDO <span style="color: var(--neon-yellow);" aria-hidden="true">*</span>
+              </label>
+              <input id="studentName" name="studentName" type="text" placeholder="Nombre completo" required aria-required="true" autocomplete="name" class="brutalist-input">
+              <span class="input-error-msg" id="nameError" style="display: none;">
+                Por favor ingresa tu nombre completo.
+              </span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="studentWhatsapp">
+                WHATSAPP / TELÉFONO <span style="color: var(--neon-yellow);" aria-hidden="true">*</span>
+              </label>
+              <input id="studentWhatsapp" name="studentWhatsapp" type="tel" placeholder="+56 9 1234 5678" required aria-required="true" autocomplete="tel" class="brutalist-input">
+              <span class="input-error-msg" id="phoneError" style="display: none;">
+                Por favor ingresa un número de WhatsApp.
+              </span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="studentEmail">
+                EMAIL <span style="color: var(--neon-yellow);" aria-hidden="true">*</span>
+              </label>
+              <input id="studentEmail" name="studentEmail" type="email" placeholder="alumno@email.com" required aria-required="true" autocomplete="email" class="brutalist-input">
+              <span class="input-error-msg" id="emailError" style="display: none;">
+                Por favor ingresa un correo electrónico válido.
+              </span>
+            </div>
+
+            <!-- Preload status -->
+            <div class="preload-status-bar">
+              <span style="color: var(--neon-yellow);">⚡ ESQUEMAS EURORACK:</span>
+              <span id="preloadStatusText">SINCRONIZANDO...</span>
+            </div>
+
+            <!-- CTA Principal — estilo bg-[#EFFF1A] font-built del sitio -->
+            <button type="submit" class="btn-cta-yellow" id="startExamBtn" aria-label="Iniciar evaluación">
+              INICIAR EVALUACIÓN →
+            </button>
+          </form>
+
+          <div class="info-terminal-note anim-fade-up delay-400">
+            <strong style="color: var(--neon-yellow);">ℹ</strong> Las 2 preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PANTALLA 2: QUIZ ═══════════════ -->
+    <section class="screen" id="quizScreen" aria-labelledby="questionText">
+      <div class="quiz-section">
+        <div class="quiz-container">
+
+          <div class="question-topbar">
+            <span class="badge-rect" id="questionBadge">PREGUNTA 01</span>
+            <span class="points-label" id="pointsBadge">PUNTAJE: 1 PTO</span>
+          </div>
+
+          <!-- Alerta destacada para preguntas BONUS -->
+          <div class="bonus-alert-banner" id="bonusAlertBanner" style="display: none;" role="status">
+            <div class="bonus-alert-header">
+              <span class="bonus-alert-tag">★ PREGUNTA BONUS // HUMOR Y CULTURA ★</span>
+              <span class="bonus-alert-pill">0 PUNTOS (SIN EVALUACIÓN)</span>
+            </div>
+            <div class="bonus-alert-desc">
+              Esta pregunta es recreativa y <strong>NO TIENE PUNTAJE</strong>. Tu respuesta no suma ni resta puntos a tu nota técnica de aprobación.
+            </div>
+          </div>
+
+          <h2 class="question-heading" id="questionText">
+            ¿Qué módulo Eurorack es este?
+          </h2>
+
+          <!-- Diagram viewer -->
+          <div class="diagram-viewer" id="mediaWrapper" style="display: none;" role="region" aria-label="Diagrama técnico de la pregunta">
+            <div class="diagram-loading-box" id="diagramLoadingBox" aria-live="polite">
+              <div class="diagram-spinner" aria-hidden="true"></div>
+              <span class="font-mono" style="font-size: 0.75rem; color: var(--neon-yellow);">[ CARGANDO ESQUEMA... ]</span>
+            </div>
+
+            <div class="diagram-frame" id="diagramFrame" style="display: none;">
+              <img id="questionImage" class="diagram-img" src="" alt="Diagrama Eurorack correspondiente a la pregunta" onclick="openLightbox(this.src)" tabindex="0" role="button" aria-label="Ampliar imagen">
+            </div>
+
+            <div class="diagram-toolbar">
+              <span style="color: var(--neon-yellow);">ESQUEMA TÉCNICO</span>
+              <span style="color: var(--text-zinc-400);">[TOCA PARA AMPLIAR]</span>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <fieldset class="options-fieldset">
+            <legend class="sr-only">Selecciona una de las siguientes opciones:</legend>
+            <div class="options-rack" id="optionsContainer" role="radiogroup" aria-labelledby="questionText">
+              <!-- Generated dynamically -->
+            </div>
+          </fieldset>
+
+          <!-- Navigation -->
+          <div class="nav-controls">
+            <button type="button" class="btn-cta-secondary" id="prevBtn" onclick="navigatePrev()" aria-label="Pregunta anterior">
+              ← ANTERIOR
+            </button>
+            <button type="button" class="btn-cta-yellow" id="nextBtn" onclick="navigateNext()" aria-label="Siguiente pregunta">
+              SIGUIENTE →
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PANTALLA 3: RESULTADOS ═══════════════ -->
+    <section class="screen" id="resultScreen" aria-labelledby="resultStamp">
+      <div class="result-section">
+        <div class="result-container">
+
+          <!-- Verdict -->
+          <div class="verdict-banner">
+            <div class="verdict-tag pass" id="resultStamp">APROBADO</div>
+            <h2 class="font-anton" style="font-size: 1.875rem; text-transform: uppercase; color: #fff; margin-top: 0.75rem;" id="resultGreeting">
+              ¡EXCELENTE!
+            </h2>
+            <p class="font-aktiv" style="font-size: 0.875rem; color: var(--text-zinc-400); margin-top: 0.25rem;" id="resultSummary">
+              Has completado la evaluación de síntesis modular.
+            </p>
+          </div>
+
+          <!-- Score -->
+          <div class="score-slab" role="region" aria-label="Puntaje obtenido">
+            <div class="score-big" id="scorePercent">0%</div>
+            <div class="score-meta">
+              <div id="scoreRatio">0 / 11 PUNTOS TÉCNICOS</div>
+              <div id="scoreFeedback" style="color: var(--text-zinc-400);">Exigencia mínima: 70% (8 pts)</div>
+            </div>
+          </div>
+
+          <!-- Sync status -->
+          <div class="sync-indicator" id="syncBanner" role="status" aria-live="polite">
+            <span id="syncIcon" aria-hidden="true">⚡</span>
+            <span id="syncText">Guardando respuestas...</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="results-actions" id="resultsActionsContainer">
+            <button class="btn-cta-whatsapp" id="shareWhatsappBtn" onclick="sendWhatsAppReceipt()" aria-label="Enviar comprobante por WhatsApp">
+              ENVIAR POR WHATSAPP 📲
+            </button>
+            <div class="dual-actions-grid">
+              <button class="btn-cta-secondary" onclick="downloadStudentCsv()" aria-label="Descargar CSV">
+                DESCARGAR CSV 📥
+              </button>
+              <button class="btn-cta-secondary" onclick="restartExam()" aria-label="Repetir evaluación">
+                REPETIR 🔄
+              </button>
+            </div>
+          </div>
+
+          <!-- Review accordion -->
+          <div class="review-accordion-wrap">
+            <details class="review-details" open>
+              <summary class="review-summary" aria-label="Revisión detallada de respuestas">
+                <span>REVISIÓN DETALLADA</span>
+                <span class="toggle-cross" aria-hidden="true">+</span>
+              </summary>
+              <div class="review-content" id="reviewList">
+                <!-- Rendered dynamically -->
+              </div>
+            </details>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       FOOTER — Réplica exacta de makenoiselab.cl
+       (Franja fucsia 8px + 3 columnas + copyright)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="footer-neon-stripe" role="presentation" aria-hidden="true"></div>
+  <footer class="site-footer" aria-label="Pie de página">
+    <div class="footer-grid">
+      <!-- Col 1: Logo + description -->
+      <div class="footer-col footer-col-logo">
+        <img src="assets/logos/logo-mnl-principal.png" alt="Make Noise Lab" class="footer-logo-img">
+        <p class="footer-col-text">
+          Sede chilena de Modular Moon. Laboratorio boutique de síntesis modular.
+        </p>
+      </div>
+
+      <!-- Col 2: Contact -->
+      <div class="footer-col">
+        <h3 class="footer-col-heading">CONTACTO</h3>
+        <p class="footer-col-text">
+          Instagram: <a href="https://instagram.com/makenoiselab" target="_blank" rel="noopener noreferrer" class="hover-pink">@makenoiselab</a><br>
+          Santiago, Chile
+        </p>
+      </div>
+
+      <!-- Col 3: Navigation + Admin -->
+      <div class="footer-col">
+        <h3 class="footer-col-heading">NAVEGACIÓN</h3>
+        <p class="footer-col-text" style="margin-bottom: 0.5rem;">
+          <a href="https://makenoiselab.cl" target="_blank" rel="noopener">makenoiselab.cl</a>
+        </p>
+        <p class="footer-col-text" style="margin-bottom: 0.5rem;">
+          <a href="https://makenoiselab.cl/diplomado/" target="_blank" rel="noopener">Diplomado</a>
+        </p>
+        <button class="admin-trigger-link" onclick="openAdminModal()" aria-label="Abrir panel docente">
+          [ PANEL DOCENTE / BBDD ]
+        </button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Make Noise Lab. Wires &amp; Voltage.
+    </div>
+  </footer>
+
+  <!-- ═══════════════ LIGHTBOX MODAL ═══════════════ -->
+  <div class="lightbox-shade" id="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Esquema ampliado" onclick="closeLightbox()">
+    <div class="lightbox-modal" onclick="event.stopPropagation()">
+      <div class="lightbox-top">
+        <span style="color: var(--neon-yellow);">ESQUEMA TÉCNICO</span>
+        <button class="close-square-btn" onclick="closeLightbox()" aria-label="Cerrar">[X] CERRAR</button>
+      </div>
+      <img id="lightboxImg" class="lightbox-media" src="" alt="Esquema técnico ampliado">
+    </div>
+  </div>
+
+  <!-- ═══════════════ ADMIN MODAL ═══════════════ -->
+  <div class="admin-shade" id="adminModal" role="dialog" aria-modal="true" aria-label="Panel docente">
+    <div class="admin-window">
+      <div class="admin-window-header">
+        <span>PANEL DOCENTE // BBDD</span>
+        <button class="close-square-btn" onclick="closeAdminModal()" aria-label="Cerrar panel">[X]</button>
+      </div>
+      <div class="admin-window-body">
+        <p style="color: var(--text-zinc-400); margin-bottom: 1rem;">
+          Configura el Webhook de Google Sheets para recibir las respuestas en tiempo real.
+        </p>
+
+        <div class="form-field" style="margin-bottom: 1rem;">
+          <label class="form-label" for="adminWebhookUrl" style="font-size: 0.875rem;">
+            URL GOOGLE APPS SCRIPT:
+          </label>
+          <input type="url" id="adminWebhookUrl" class="brutalist-input" style="font-size: 0.875rem;" placeholder="https://script.google.com/macros/s/.../exec">
+          <button class="btn-cta-secondary" style="margin-top: 0.5rem; font-size: 0.875rem; padding: 8px 14px;" onclick="saveWebhookUrl()">
+            GUARDAR CONEXIÓN
+          </button>
+        </div>
+
+        <div class="admin-metric-row">
+          <span>EVALUACIONES EN ESTE NAVEGADOR:</span>
+          <strong style="color: var(--neon-yellow);" id="adminSubmissionCount">0</strong>
+        </div>
+
+        <div class="admin-buttons-stack">
+          <button class="btn-cta-yellow" style="font-size: 0.875rem; padding: 10px 14px;" onclick="exportConsolidatedCsv()">
+            DESCARGAR TODA LA BBDD (.CSV) 📥
+          </button>
+          <button class="btn-cta-danger" style="font-size: 0.875rem; padding: 8px 14px;" onclick="clearLocalSubmissions()">
+            VACIAR HISTORIAL LOCAL 🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

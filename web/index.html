@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diplomado en Síntesis Modular - Make Noise Lab</title>
+
+    <!-- Meta Description -->
+    
+    <meta name="description" content="Programa intensivo de 4 meses (18 clases) en síntesis modular Eurorack. Hardware + VCV Rack. Certificación internacional Modular Moon.">
+    
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://makenoise.lab/diplomado/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://makenoise.lab/diplomado/">
+    <meta property="og:title" content="Diplomado en Síntesis Modular - Make Noise Lab">
+    <meta property="og:description"
+        content="Programa intensivo de 4 meses (18 clases) en síntesis modular Eurorack. Hardware + VCV Rack. Certificación internacional Modular Moon.">
+    <meta property="og:image" content="https://makenoise.lab/static/images/modular-moon-hero.jpg">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:site_name" content="Make Noise Lab">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://makenoise.lab/diplomado/">
+    <meta name="twitter:title" content="Diplomado en Síntesis Modular - Make Noise Lab">
+    <meta name="twitter:description"
+        content="Programa intensivo de 4 meses (18 clases) en síntesis modular Eurorack. Hardware + VCV Rack. Certificación internacional Modular Moon.">
+    <meta name="twitter:image" content="https://makenoise.lab/static/images/modular-moon-hero.jpg">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Make Noise Lab">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Make Noise Lab",
+      "url": "https://makenoise.cl",
+      "logo": "https://makenoise.cl/static/images/logos/LOGO%20MNLv1_Web_Grande.png",
+      "sameAs": [
+        "https://www.instagram.com/makenoise.lab/"
+      ],
+      "description": "Laboratorio boutique de síntesis modular en Santiago, Chile. Sede chilena de Modular Moon.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santiago",
+        "addressRegion": "Región Metropolitana",
+        "addressCountry": "CL"
+      }
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-40VKE4SJMS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-40VKE4SJMS');
+    </script>
+
+    <!-- Local Fonts Preload (Critical for Brutalist Layout) -->
+    <link rel="preload" href="../static/fonts/built-titling-rg.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../static/fonts/built-titling-sb.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../static/fonts/myriad-pro-rg.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Google Fonts Preload & Async Load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Sans+Pro:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&display=swap">
+    </noscript>
+
+    <!-- Tailwind CSS (Compiled) -->
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <style>
+        @font-face {
+            font-family: 'Built Titling RG';
+            src: url('../static/fonts/built-titling-rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Built Titling RG';
+            src: url('../static/fonts/built-titling-sb.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Built Titling RG';
+            src: url('../static/fonts/built-titling-bd.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Myriad Pro';
+            src: url('../static/fonts/myriad-pro-rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'Aktiv Grotesk';
+            src: url('../static/fonts/aktiv-grotesk-rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .neon-glow-yellow {
+            text-shadow: 0 0 10px rgba(239, 255, 26, 0.4);
+        }
+
+        /* nav-iso styling removed filter as we use a yellow source image now */
+        .nav-iso {
+            /* No filter needed */
+        }
+
+        ::selection {
+            background-color: #EFFF1A;
+            color: #000000;
+        }
+
+        /* Skip-to-content link (WCAG 2.4.1) */
+        .skip-to-content {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 999;
+            padding: 12px 24px;
+            background: #EFFF1A;
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 0 0 8px 0;
+        }
+
+        .skip-to-content:focus {
+            left: 0;
+        }
+    </style>
+
+    
+</head>
+
+<body class="bg-black text-zinc-300 font-sans antialiased">
+
+    <!-- Skip-to-content (WCAG 2.4.1) -->
+    <a href="#main-content" class="skip-to-content">Saltar al contenido</a>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-black border-b border-zinc-900 relative" aria-label="Navegación principal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between lg:justify-start h-[72px]">
+                <!-- Mobile Spacer to center logo -->
+                <div class="w-10 lg:hidden"></div>
+                
+                <!-- Logo -->
+                <a href="../" class="flex items-center hover:opacity-80 transition-all duration-300 shrink-0">
+                    <img src="../static/images/logos/LOGO MNLv2_Web_Horizontal.png" alt="Logotipo principal de Make Noise Lab"
+                        class="h-8 md:h-10 w-auto">
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-6 xl:space-x-8 ml-auto">
+                    <a href="./"
+                        class="nav-iso-link flex items-center gap-2 font-built font-normal text-4xl xl:text-5xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors">
+                        <img src="../static/images/logos/Isotipo MM Amarillo tulpa.png" alt="" aria-hidden="true"
+                            class="nav-iso h-7 xl:h-9 w-auto object-contain shrink-0">
+                        Diplomado
+                    </a>
+                    <a href="../workshops/"
+                        class="nav-iso-link flex items-center gap-1 font-built font-normal text-4xl xl:text-5xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors">
+                        Workshops
+                    </a>
+                    <a href="../sede/"
+                        class="font-built font-normal text-4xl xl:text-5xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors">Sala
+                        de control</a>
+                    <a href="../contacto/"
+                        onclick="gtag('event', 'click_contacto', { 'event_category': 'conversion', 'event_label': 'navbar_desktop' });"
+                        class="font-built font-bold text-3xl xl:text-4xl uppercase tracking-normal px-4 pt-[2px] pb-[1px] bg-[#EFFF1A] text-black hover:brightness-110 transition-all leading-none -translate-y-[1px]">Contacto</a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" class="lg:hidden text-[#EFFF1A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EFFF1A] relative z-50 p-2"
+                    aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg id="menu-icon-open" class="w-8 h-8 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden w-8 h-8 transition-transform duration-300" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Instagram icon: absolutely flush to right edge, outside max-w-7xl -->
+        <a href="https://instagram.com/makenoiselab" target="_blank" rel="noopener noreferrer"
+            onclick="gtag('event', 'click_instagram', { 'event_category': 'social', 'event_label': 'navbar_desktop' });"
+            class="hidden lg:flex items-center absolute right-0 top-0 h-full px-4 text-[#E2E2E2] hover:text-[#FF3399] hover:scale-110 transition-all duration-300 ease-in-out"
+            aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 antialiased"
+                style="shape-rendering: geometricPrecision;" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+        </a>
+    </nav>
+
+
+
+    <!-- Mobile Fullscreen Menu Overlay -->
+    <div id="mobile-menu" role="dialog" aria-label="Menú de navegación"
+        class="lg:hidden fixed inset-0 bg-black z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-all duration-300 translate-y-full">
+        <div class="flex flex-col items-center space-y-8 w-full px-6">
+            <a href="./"
+                class="mobile-link flex items-center justify-center gap-3 font-built font-normal text-5xl sm:text-7xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors">
+                <img src="../static/images/logos/Isotipo MM Amarillo tulpa.png" alt="" aria-hidden="true"
+                    class="nav-iso h-10 sm:h-14 w-auto object-contain shrink-0">
+                Diplomado
+            </a>
+            <a href="../workshops/"
+                class="mobile-link inline-flex items-start gap-1 font-built font-normal text-5xl sm:text-7xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors">
+                Workshops
+            </a>
+
+            <a href="../sede/"
+                class="mobile-link font-built font-normal text-5xl sm:text-7xl uppercase tracking-tight leading-none text-white hover:text-[#EFFF1A] transition-colors text-center">Sala
+                de control</a>
+
+            <a href="../contacto/"
+                onclick="gtag('event', 'click_contacto', { 'event_category': 'conversion', 'event_label': 'navbar_mobile' });"
+                class="mobile-link font-built font-bold text-4xl sm:text-6xl uppercase tracking-normal px-5 py-1 bg-[#EFFF1A] text-black transition-colors text-center w-full max-w-[80%] mx-auto">Contacto</a>
+
+            <!-- Mobile IG -->
+            <a href="https://instagram.com/makenoiselab" target="_blank" rel="noopener noreferrer"
+                onclick="gtag('event', 'click_instagram', { 'event_category': 'social', 'event_label': 'navbar_mobile' });"
+                class="mobile-link text-[#E2E2E2] hover:text-[#FF3399] hover:scale-110 transition-all duration-300 ease-in-out mt-4"
+                aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 antialiased"
+                    style="shape-rendering: geometricPrecision;" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        
+
+
+<section class="parallax-wrap relative w-full h-[18vh] md:h-[50vh] min-h-[140px] md:min-h-[340px] overflow-hidden group">
+    <img id="diplomado-hero-img" src="../static/images/abtest/Tulpa.jpg" alt="Mano conectando cables en un sintetizador modular durante una clase práctica del diplomado"
+        class="parallax-img absolute -top-[20%] left-0 w-full h-[140%] object-cover object-center anim-zoom-out">
+</section>
+
+
+<section class="bg-[#202020] pt-16 pb-12">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        
+        <div class="mb-10">
+            
+            <div class="flex items-center gap-4 mb-2 anim-fade-up">
+                <img src="../static/images/logos/logo-mm-puro.jpg" alt="Sello de calidad oficial de la escuela de síntesis Modular Moon" class="h-10 md:h-16 lg:h-20 w-auto">
+            </div>
+
+            
+            <div
+                class="font-aktiv text-[#E2E2E2] text-base md:text-lg leading-relaxed opacity-90 space-y-4 mb-3 text-justify text-editor-content anim-fade-up delay-100">
+                <p><strong>Modular Moon</strong> es una escuela internacional dedicada a la enseñanza de síntesis modular, diseño sonoro y tecnologías avanzadas de producción musical, con su casa matriz en <em>Ámsterdam</em> 🇳🇱. Fundada por la artista y educadora <strong>Anna Martinova</strong> <em>(AKA Tulpa Dusha)</em>, la escuela nace con el objetivo de crear un espacio de formación especializado donde músicos, productores y creadores puedan comprender en profundidad el universo de los sistemas modulares y su aplicación en la creación sonora contemporánea.</p>
+<p>Con sedes y programas educativos alrededor del mundo, Modular Moon combina <strong>formación técnica, experimentación y práctica directa</strong>, trabajando tanto con hardware modular <em>Eurorack</em> como con entornos virtuales. Su metodología está orientada a desarrollar habilidades reales de diseño sonoro, construcción de sistemas modulares, producción musical y <em>performance</em>, formando una comunidad global de artistas que exploran nuevas fronteras en la música electrónica y la síntesis.</p>
+
+            </div>
+
+        </div>
+
+
+        
+        <div>
+            
+            <h1
+                class="font-anton text-2xl md:text-4xl lg:text-5xl text-[#f9e750] tracking-tight leading-none mb-10 mt-0 anim-fade-up">
+                Diplomado Modular Moon
+            </h1>
+
+            
+            <div class="mb-8 anim-fade-up delay-100">
+                <h2 class="font-built font-bold text-xl md:text-2xl text-white tracking-wide mb-2">
+                    Fundamentos de la síntesis modular
+                </h2>
+                <div
+                    class="font-aktiv text-[#E2E2E2] text-base md:text-lg leading-relaxed opacity-90 text-justify text-editor-content">
+                    <p>Curso <strong>técnico–práctico</strong> orientado a comprender y utilizar sistemas de síntesis modular <em>desde sus fundamentos</em> hasta su aplicación en producción musical y <em>performance</em>.</p>
+
+                </div>
+            </div>
+
+            
+            <div class="mb-8 anim-fade-up delay-200">
+                <h2 class="font-built font-bold text-xl md:text-2xl text-white tracking-wide mb-2">
+                    Contenido del curso
+                </h2>
+                <div
+                    class="font-aktiv text-[#E2E2E2] text-base md:text-lg leading-[1.6] opacity-90 text-justify text-editor-content">
+                    <p>Principios físicos del sonido y arquitectura <strong>Eurorack</strong></p>
+<p>Generadores y procesadores de señal: <em>VCO, VCF, VCA, LFO, envolventes</em></p>
+<p>Control y modulación: <em>CV, Gate, Trigger, clocks y secuenciadores</em></p>
+<p>Métodos de síntesis: <strong>sustractiva, aditiva, FM, wavetable y granular</strong></p>
+<p>Construcción de patches complejos y sistemas modulares</p>
+<p>Integración con <strong>DAW, MIDI/CV</strong> y trabajo de estudio</p>
+<p>Aplicación en grabación y <em>performance en vivo</em></p>
+                </div>
+            </div>
+
+            
+            <div class="mb-8 anim-fade-up delay-300">
+                <h2 class="font-built font-bold uppercase text-xl md:text-2xl text-white tracking-wide mb-2">
+                    Metodología
+                </h2>
+                <div
+                    class="font-aktiv text-[#E2E2E2] text-base md:text-lg leading-[1.6] opacity-90 mb-2 text-justify text-editor-content">
+                    <p><strong>Clases teóricas</strong> + <strong>práctica</strong> con hardware modular</p>
+<p>Desarrollo de patches en <em>VCV Rack</em></p>
+<p>Aplicación progresiva en contextos <strong>reales</strong> de producción musical.</p>
+                </div>
+            </div>
+
+            
+            <a href="../contacto/"
+                class="inline-block mt-2 bg-[#E2E2E2] text-[#1a1a1a] font-built font-bold text-xl uppercase px-5 py-2 tracking-wide hover:bg-[#f9e750] transition-colors anim-fade-up delay-400">
+                Ver Programa Completo
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section class="flex flex-col w-full bg-[#E2E2E2]">
+
+    <div class="bg-[#1a1a1a] w-full py-6 md:py-10 flex justify-center items-center">
+        <h2 class="font-built text-4xl md:text-5xl lg:text-6xl text-white tracking-tight text-center px-4">
+            Preguntas frecuentes
+        </h2>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto px-4 py-10 md:py-14 flex flex-col gap-0">
+        
+        
+    </div>
+</section>
+
+
+<section class="parallax-wrap relative w-full h-[80vh] min-h-[450px] overflow-hidden">
+    <img src="../static/images/abtest/Book.jpg" alt="Libro oficial de estudio de Modular Moon abierto sobre una mesa rodeado de cables" 
+        class="parallax-img absolute -top-[20%] left-0 w-full h-[140%] object-cover anim-zoom-out"
+        style="object-position: center 20%;">
+</section>
+
+
+
+<style>
+    @media (prefers-reduced-motion: no-preference) {
+        .anim-fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .anim-fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .anim-zoom-out {
+            transform: scale(1.05);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .anim-zoom-out.is-visible {
+            transform: scale(1);
+        }
+
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!window.IntersectionObserver) {
+            document.querySelectorAll('.anim-fade-up, .anim-zoom-out').forEach(function (el) {
+                el.classList.add('is-visible');
+            });
+            return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.anim-fade-up, .anim-zoom-out').forEach(function (el) {
+            observer.observe(el);
+        });
+    });
+
+    /* ── Subtle parallax on section images ──────────────────────────── */
+    (function () {
+        var FACTOR = 0.05; // soft parallax
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var imgs = document.querySelectorAll('.parallax-img');
+        if (!imgs.length || reducedMotion) return;
+
+        imgs.forEach(function (img) {
+            img.style.willChange = 'transform';
+        });
+
+        var ticking = false;
+        function update() {
+            var wh = window.innerHeight;
+            imgs.forEach(function (img) {
+                var wrap = img.closest('.parallax-wrap');
+                if (!wrap) return;
+                var rect = wrap.getBoundingClientRect();
+                // Only calculate if visible
+                if (rect.top < wh && rect.bottom > 0) {
+                    var shift = ((rect.top + rect.height / 2) - wh / 2) * FACTOR;
+                    img.style.transform = 'translateY(' + shift.toFixed(2) + 'px)';
+                }
+            });
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        }, { passive: true });
+        update();
+    })();
+</script>
+
+
+    </main>
+
+    <!-- Footer -->
+    <!-- Pink band separator -->
+    <div class="h-2 bg-[#FF3399]" role="presentation" aria-hidden="true"></div>
+
+    <footer class="bg-black pb-20 lg:pb-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img src="../static/images/logos/LOGO MNLv1_Web_Grande.png" alt="Logotipo de Make Noise Lab"
+                        class="w-16 md:w-20 mb-4">
+                    <h3 class="font-mono text-white text-lg mb-4 sr-only">MAKE_NOISE_LAB</h3>
+                    <p class="text-sm text-zinc-400">
+                        Sede chilena de Modular Moon. Laboratorio boutique de síntesis modular.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-mono text-[#EFFF1A] text-lg mb-4 font-bold">CONTACTO</h3>
+                    <p class="text-sm text-zinc-400">
+                        Email: <a href="mailto:info@makenoise.cl"
+                            class="hover:text-[#EFFF1A] transition-colors">info@makenoise.cl</a><br>
+                        Instagram: <a href="https://instagram.com/makenoiselab" target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-[#FF3399] transition-colors">@makenoiselab</a><br>
+                        Santiago, Chile
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-mono text-[#EFFF1A] text-lg mb-4 font-bold">NAVEGACIÓN</h3>
+                    <ul class="text-sm text-zinc-400 space-y-2">
+                        <li><a href="../modular-moon" class="hover:text-[#EFFF1A] transition-colors">Modular
+                                Moon</a></li>
+                        <li><a href="./"
+                                class="hover:text-[#EFFF1A] transition-colors">Diplomado</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-zinc-800 text-center text-sm text-zinc-500">
+                © 2026 Make Noise Lab. Wires &amp; Voltage.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Footer padding for sticky bar -->
+    <style>
+        @media (max-width: 1023px) {
+            footer { padding-bottom: 90px !important; }
+        }
+    </style>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    const isOpen = !mobileMenu.classList.contains('opacity-0');
+
+                    if (isOpen) {
+                        // Close menu
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                        mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-full');
+                        mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                        iconClose.classList.add('hidden');
+                        iconOpen.classList.remove('hidden');
+                        document.body.style.overflow = '';
+                    } else {
+                        // Open menu
+                        menuBtn.setAttribute('aria-expanded', 'true');
+                        mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-full');
+                        mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                        iconOpen.classList.add('hidden');
+                        iconClose.classList.remove('hidden');
+                        // Prevent background scrolling
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Mobile Sticky CTA: Footer Bar style (Always visible on mobile) -->
+    <div id="mobile-sticky-cta"
+        class="lg:hidden fixed left-0 right-0 z-[100] border-t border-black/10"
+        style="bottom: 0 !important; position: fixed !important;">
+        <a id="cta-link-dynamic" href="../contacto/"
+            onclick="gtag('event', 'click_contacto', { 'event_category': 'conversion', 'event_label': 'mobile_sticky' });"
+            class="block w-full bg-[#EFFF1A] text-black py-5 text-center font-built font-bold text-3xl tracking-normal uppercase shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+            Contacto
+        </a>
+    </div>
+
+
+</body>
+
+</html>
