@@ -36,12 +36,17 @@ Aplicación web interactiva brutalista diseñada para enviar por **WhatsApp** a 
 
 ---
 
+## 🌐 Enlace Oficial en Vivo (GitHub Pages)
+
+- **URL de la Evaluación:** [https://callejasv1.github.io/mnl-examen/](https://callejasv1.github.io/mnl-examen/)
+- **Repositorio en GitHub:** [https://github.com/callejasv1/mnl-examen](https://github.com/callejasv1/mnl-examen)
+
+---
+
 ## 🚀 Cómo compartirlo con los alumnos por WhatsApp
 
-### Opción A: Vercel / Netlify / GitHub Pages (La más rápida y recomendada)
-1. Sube estos archivos a un repositorio de GitHub o arrastra la carpeta a [Vercel](https://vercel.com) o [Netlify Drop](https://app.netlify.com/drop).
-2. Obtendrás un enlace público (ej: `https://examen-makenoiselab.vercel.app` o subdominio `examen.makenoiselab.cl`).
-3. Envías ese link directamente por el grupo o chat de WhatsApp. WhatsApp generará automáticamente la tarjeta de previsualización con el título oficial y miniatura.
+1. Comparte el enlace directo: `https://callejasv1.github.io/mnl-examen/`.
+2. Al pegarlo en WhatsApp, se generará de inmediato la tarjeta oficial con la vista previa del examen y el logo de Make Noise Lab.
 
 ### Opción B: Ejecución local
 Para probar en tu computadora:
