@@ -80,28 +80,28 @@ const FUNDAMENTAL_QUESTIONS = [
     isBonus: false,
     image: "assets/images/adsr_diagram.png",
     options: [
-      "La fase 1 (Attack): determina la velocidad con que la señal alcanza su pico máximo.",
-      "La fase 2 (Decay): determina el tiempo que tarda la señal en descender tras el ataque.",
-      "La fase 4 (Release): determina el tiempo que tarda el sonido en extinguirse al soltar.",
-      "La fase 3 (Sustain): determina la amplitud mantenida mientras la tecla sigue presionada."
+      "Fase 1 — Attack (Ataque)",
+      "Fase 2 — Decay (Decaimiento)",
+      "Fase 3 — Sustain (Sostenimiento)",
+      "Fase 4 — Release (Liberación)"
     ],
-    correctIndex: 3,
-    explanation: "En la envolvente ADSR: Attack (1), Decay (2) y Release (4) son parámetros de tiempo (miden cuántos milisegundos o segundos tarda cada transición). El Sustain (3) es el único parámetro de nivel (voltaje/amplitud): determina a qué volumen se mantiene el sonido mientras la tecla siga oprimida."
+    correctIndex: 2,
+    explanation: "En la envolvente ADSR: Attack (1), Decay (2) y Release (4) son parámetros de tiempo (miden cuántos milisegundos o segundos tarda cada transición). El Sustain (3) es el único parámetro de nivel (voltaje/amplitud): determina a qué voltaje se mantiene la señal mientras la compuerta Gate permanezca activa."
   },
   {
     id: 5,
-    question: "En un generador de envolvente estándar de 4 etapas (ADSR), ¿qué determina específicamente la etapa de Ataque ('A')?",
+    question: "En un generador de envolvente estándar de 4 etapas (ADSR), ¿qué determina específicamente el parámetro de Ataque (Attack)?",
     points: 1,
     isBonus: false,
     image: null,
     options: [
-      "Amplitude (Amplitud): el volumen estático permanente al que sonará el instrumento.",
-      "Attack (Ataque): el tiempo que tarda la señal en subir desde cero hasta su nivel máximo.",
-      "Analog (Analógico): la calibración del circuito eléctrico según la norma de voltaje.",
-      "Attenuation (Atenuación): la cantidad de decibeles que se reducen al pulsar la tecla."
+      "El tiempo que tarda el voltaje en descender desde el pico máximo hasta el nivel de sostenimiento.",
+      "El tiempo que tarda el voltaje en subir desde cero hasta su nivel máximo tras recibir la orden de disparo.",
+      "El nivel de voltaje constante al que se estabiliza la señal mientras el Gate permanezca activo.",
+      "El tiempo que tarda el voltaje en extinguirse por completo una vez que se suelta la tecla o cesa el Gate."
     ],
     correctIndex: 1,
-    explanation: "La 'A' significa Attack (Ataque). Un ataque inmediato (0 ms) genera un sonido percusivo instantáneo (como un piano o tambor), mientras que un ataque largo (segundos) produce una entrada gradual y suave (como cuerdas o pads ambientales)."
+    explanation: "El Ataque (Attack) calibra el tiempo de subida inicial: un ataque mínimo (inmediato, 0 a 1 ms) produce un sonido percusivo instantáneo (como un redoblante o bajo pluck), mientras que un ataque largo (segundos) produce una entrada gradual y suave (como cuerdas o pads ambientales)."
   },
   {
     id: 6,
