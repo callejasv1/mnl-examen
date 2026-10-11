@@ -116,7 +116,7 @@ def osc_wave(name, kind):
 # ── 2. Envolvente ADSR ───────────────────────────────────────────────────────
 def adsr():
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI)
-    head(fig, "CURVA DE ENVOLVENTE EN 4 ETAPAS (ADSR)")
+    head(fig, "CURVA DE ENVOLVENTE ANALÓGICA EN 4 ETAPAS")
     ax = fig.add_axes([0.12, 0.20, 0.82, 0.65])
     style_axis(ax)
 
@@ -162,7 +162,7 @@ def adsr():
 # ── 3. Sample & Hold ─────────────────────────────────────────────────────────
 def sample_hold():
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI)
-    head(fig, "CIRCUITO DE CONTROL MODULAR (SAMPLE & HOLD)")
+    head(fig, "CIRCUITO DE CONTROL MODULAR — SEÑALES DE VOLTAJE")
     rects = [(0.10, 0.70, 0.86, 0.17), (0.10, 0.41, 0.86, 0.17), (0.10, 0.12, 0.86, 0.17)]
     axs = [fig.add_axes(r) for r in rects]
     for a in axs:
@@ -170,34 +170,49 @@ def sample_hold():
         a.set_xticks([]); a.set_yticks([])
         for s in a.spines.values():
             s.set_color(DIM)
+        a.set_xlim(0, 8)
 
     def s(x):
         return 4 * np.sin(2 * np.pi * x / 3.0)
 
-    t = np.linspace(0, 8, 1400)
+    t = np.linspace(0, 8, 2000)
     sig = s(t)
-    trig = np.arange(0.5, 8, 1.15)
-    samples = s(trig)                      # valor exacto de la onda en cada trigger
-    idx = np.searchsorted(t, trig)
-    hold = np.zeros_like(t)                # antes del primer trigger no hay captura
-    for i, ix in enumerate(idx):
-        end = idx[i + 1] if i + 1 < len(idx) else len(t)
-        hold[ix:end] = samples[i]          # retiene el valor muestreado hasta el próximo trigger
+    trig = np.arange(0.6, 8.0, 1.2)
+    samples = s(trig)
 
+    # 1. Señal continua analógica IN
     axs[0].plot(t, sig, color=CYAN, lw=2.4)
-    axs[0].plot(trig, samples, "o", color=NEON, ms=6, zorder=5)  # puntos de muestreo
+    axs[0].plot(trig, samples, "o", color=NEON, ms=7, zorder=5)
     axs[0].set_ylim(-6, 6)
 
-    axs[1].vlines(trig, 0, 1, color=NEON, lw=5)
+    # 2. Pulsos de Trigger sincronizados
+    for tr in trig:
+        axs[1].fill_between([tr, tr + 0.08], [0, 0], [1, 1], color=NEON, zorder=4)
+        axs[1].plot([tr, tr, tr + 0.08, tr + 0.08], [0, 1, 1, 0], color=NEON, lw=2.0, zorder=5)
     axs[1].set_ylim(-0.2, 1.4)
 
-    axs[2].step(t, hold, color=NEON, lw=2.6, where="post")
-    axs[2].fill_between(t, hold, step="post", color=NEON, alpha=0.07)
-    axs[2].set_ylim(-6, 6)
+    # 3. Señal de Salida (Hold) con saltos exactamente en cada trigger
+    xs = [0, trig[0], trig[0]]
+    ys = [0, 0, samples[0]]
+    for i in range(len(trig)):
+        t_end = trig[i + 1] if i + 1 < len(trig) else 8.0
+        val = samples[i]
+        xs.extend([t_end])
+        ys.extend([val])
+        if i + 1 < len(trig):
+            next_val = samples[i + 1]
+            xs.extend([t_end])
+            ys.extend([next_val])
 
-    for x in trig:
+    axs[2].plot(xs, ys, color=NEON, lw=2.6, zorder=4)
+    axs[2].fill_between(xs, ys, 0, color=NEON, alpha=0.08)
+    axs[2].set_ylim(-6, 6)
+    axs[2].axhline(0, color=DIM, lw=1.0)
+
+    # Líneas guía de sincronización vertical
+    for tr in trig:
         for a in axs:
-            a.axvline(x, color=GRID, lw=0.8, ls=(0, (1, 3)))
+            a.axvline(tr, color="#333333", lw=1.2, ls=(0, (3, 3)), zorder=1)
 
     titles = ["1. SEÑAL CONTINUA IN  (ej. Ruido o LFO)",
               "2. PULSOS DE TRIGGER  (Disparos de Clock)",
@@ -211,7 +226,7 @@ def sample_hold():
 def filter_lpf():
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI)
     ax = fig.add_axes([0.10, 0.17, 0.85, 0.68])
-    style_axis(ax, "RESPUESTA EN FRECUENCIA — FILTRO PASO BAJO (LPF)")
+    style_axis(ax, "RESPUESTA EN FRECUENCIA — FILTRO ANALÓGICO VCF")
     f = np.logspace(1, np.log10(20000), 900)
     fc = 1000.0
     mag = np.where(f <= fc, 0.0, np.maximum(-40.0, -24 * np.log2(f / fc)))
@@ -230,7 +245,7 @@ def filter_lpf():
 # ── 5. Gate / Trigger / Pitch CV ─────────────────────────────────────────────
 def gate_trigger_pitch():
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI)
-    head(fig, "SEÑALES DE CONTROL: GATE, TRIGGER Y PITCH CV")
+    head(fig, "SEÑALES DE CONTROL MODULAR POR EVENTO DE TECLA")
     axs = [fig.add_axes([0.13, 0.69, 0.82, 0.17]),
            fig.add_axes([0.13, 0.45, 0.82, 0.17]),
            fig.add_axes([0.13, 0.21, 0.82, 0.17])]
@@ -325,7 +340,7 @@ def fm_algorithm():
 # ── 7. FM y AM ───────────────────────────────────────────────────────────────
 def mod_waves(name, kind):
     fig = plt.figure(figsize=(W / DPI, H / DPI), dpi=DPI)
-    head(fig, "COMPARACIÓN DE SEÑALES: " + ("FM (FRECUENCIA MODULADA)" if kind == "fm" else "AM (AMPLITUD MODULADA)"))
+    head(fig, "COMPARACIÓN DE SEÑALES DE MODULACIÓN")
     axs = [fig.add_axes([0.12, 0.66, 0.84, 0.19]),
            fig.add_axes([0.12, 0.38, 0.84, 0.19]),
            fig.add_axes([0.12, 0.10, 0.84, 0.19])]

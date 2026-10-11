@@ -36,12 +36,12 @@ const FUNDAMENTAL_QUESTIONS = [
     image: null,
     options: [
       "Voltaje de control, Frecuencia de corte, Resonancia y Retroalimentación",
-      "Tono (Frecuencia), Timbre (Espectro armónico), Intensidad (Amplitud) y Duración",
+      "Tono, Timbre, Intensidad y Envolvente",
       "Reverberación espacial, Retardo (Delay), Modulación de fase y Distorsión armónica",
       "Tiempo de ataque, Tiempo de caída, Nivel de sostenido y Tiempo de liberación"
     ],
     correctIndex: 1,
-    explanation: "El sonido se define por cuatro dimensiones físicas perceptibles: 1) Tono/Altura (frecuencia fundamental en Hz); 2) Timbre (composición y distribución de armónicos); 3) Intensidad (amplitud o volumen en dB); 4) Duración y evolución en el tiempo (envolvente temporal)."
+    explanation: "Las cuatro dimensiones fundamentales del sonido en síntesis son: 1) Tono (altura o frecuencia fundamental); 2) Timbre (color armónico y forma de onda); 3) Intensidad (amplitud o volumen); 4) Envolvente (evolución, articulación y duración en el tiempo)."
   },
   {
     id: 2,
@@ -65,10 +65,10 @@ const FUNDAMENTAL_QUESTIONS = [
     isBonus: false,
     image: "assets/images/waveforms_square.png",
     options: [
-      "Onda Cuadrada (Square): posee simetría bipolar del 50% y contiene exclusivamente armónicos impares.",
-      "Onda Senoidal (Sine): es un tono puro fundamental y carece totalmente de armónicos superiores.",
-      "Diente de Sierra (Sawtooth): tiene pendiente lineal continua y contiene armónicos pares e impares.",
-      "Onda Triangular (Triangle): tiene forma piramidal simétrica y sus armónicos impares decaen muy rápido."
+      "Onda Cuadrada (Square): posee simetría bipolar del 50% y contiene exclusivamente armónicos impares (1°, 3°, 5°...).",
+      "Onda Senoidal (Sine): curva sinusoidal suave con un único armónico; su espectro de frecuencias es completamente puro.",
+      "Diente de Sierra (Sawtooth): rampa lineal con caída vertical abrupta; contiene armónicos pares e impares de amplitud 1/n.",
+      "Onda Triangular (Triangle): pendientes ascendente y descendente simétricas; armónicos impares con caída rápida de 1/n²."
     ],
     correctIndex: 0,
     explanation: "Es una Onda Cuadrada (Square Wave). Al tener una simetría del 50% (mitad de ciclo arriba y mitad abajo), los armónicos pares se anulan matemáticamente por cancelación de fase, dejando únicamente los armónicos impares (1º, 3º, 5º, 7º...), lo que le confiere su característico sonido hueco o aflautado."
@@ -110,10 +110,10 @@ const FUNDAMENTAL_QUESTIONS = [
     isBonus: false,
     image: null,
     options: [
-      "Generar frecuencias sub-graves audibles para alimentar exclusivamente los subwoofers.",
-      "Filtrar los armónicos agudos de una señal de audio para darle un carácter más cálido.",
-      "Generar formas de onda lentas (sub-audibles) para modular cíclicamente otros parámetros.",
-      "Amplificar la ganancia de salida general del instrumento antes de llegar a los monitores."
+      "Reforzar con una señal sincronizada las frecuencias sub-graves del VCO principal para añadir cuerpo y peso tonal.",
+      "Marcar el tempo del sistema enviando pulsos de clock regulares a los módulos de secuenciación y ritmo.",
+      "Generar formas de onda sub-audibles para modular cíclicamente parámetros como tono, filtro o volumen.",
+      "Convertir señales de control de voltaje lento en señales de audio amplificadas antes de la salida final."
     ],
     correctIndex: 2,
     explanation: "Un LFO (Oscilador de Baja Frecuencia) oscila tan lento (ej. 0.1 Hz a 15 Hz) que sus ondas no se escuchan directamente como notas musicales. En su lugar, su voltaje de salida se parchea a otros módulos para crear efectos periódicos: a la afinación del VCO crea vibrato, al Cutoff del VCF crea wah-wah, y al VCA crea trémolo."
@@ -170,10 +170,10 @@ const FUNDAMENTAL_QUESTIONS = [
     isBonus: false,
     image: null,
     options: [
-      "Aumenta el volumen global de salida del módulo de forma lineal en todo el espectro.",
-      "Modifica la afinación de las notas del oscilador desplazando la octava hacia el grave.",
-      "Enfatiza las frecuencias cercanas al corte, pudiendo autooscilar en valores extremos.",
-      "Invierte la fase de la señal de entrada en 180 grados anulando las frecuencias medias."
+      "Amplía el rango de frecuencias que el filtro deja pasar, aumentando el brillo general de la señal.",
+      "Desplaza el punto de corte hacia frecuencias más graves, oscureciendo gradualmente el timbre.",
+      "Retroalimenta la señal en torno al punto de corte, creando un pico de énfasis que puede llegar a autooscilar.",
+      "Reduce la pendiente de atenuación del filtro, suavizando la transición entre la banda de paso y el corte."
     ],
     correctIndex: 2,
     explanation: "La Resonancia retroalimenta la salida del filtro hacia su entrada, provocando un pico pronunciado de ganancia justo en la frecuencia de corte (Cutoff). Esto produce el clásico sonido ácido o silbante ('squelch'), y si el filtro es capaz de autooscilar, genera su propia onda senoidal sin necesidad de oscilador conectado."
@@ -185,10 +185,10 @@ const FUNDAMENTAL_QUESTIONS = [
     isBonus: false,
     image: null,
     options: [
-      "Que el sintetizador modular no puede recibir voltajes de entrada superiores a 1.0 Voltio.",
-      "Que el rango de afinación de todo el instrumento está restringido a 1 sola octava útil.",
-      "Que la fuente de alimentación del sistema entrega exactamente 1.0 Voltio por cada módulo.",
-      "Que cada incremento de 1.0 Voltio en la entrada de control duplica la frecuencia del tono (f x 2)."
+      "Que cada volt adicional en V/Oct incrementa la frecuencia del oscilador en 100 Hz constantes, de forma lineal.",
+      "Que todos los módulos Eurorack comparten un bus de control con voltaje máximo de ±1.0 Voltio para ser compatibles.",
+      "Que cada volt adicional en V/Oct mueve el tono del oscilador exactamente un semitono hacia el agudo.",
+      "Que cada volt adicional en V/Oct duplica la frecuencia del oscilador, subiendo la afinación una octava completa."
     ],
     correctIndex: 3,
     explanation: "La norma 1V/Octava es el estándar que garantiza la afinación musical: por cada voltio adicional aplicado a la entrada V/Oct de un oscilador, la frecuencia se duplica (por ejemplo, 110 Hz a 1V -> 220 Hz a 2V -> 440 Hz a 3V), permitiendo tocar escalas afinadas."
@@ -312,7 +312,7 @@ const ADVANCED_QUESTIONS = [
     isBonus: false,
     image: null,
     options: [
-      "VCO (Oscilador) + VCV Rack + Delay Analógico + Reverb Digital",
+      "VCO (Oscilador) + VCF (Filtro) + LFO (Modulador de Baja Frecuencia) + Mixer Pasivo",
       "VCO (Oscilador) + Mixer Pasivo + Step Sequencer + Clock Divider",
       "VCO (Oscilador) + VCF (Filtro) + ADSR (Envolvente) + VCA (Amplificador)",
       "VCO (Oscilador) + Ring Modulator + Sample & Hold + Noise Generator"
