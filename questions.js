@@ -249,48 +249,48 @@ const ADVANCED_QUESTIONS = [
   },
   {
     id: 3,
-    question: "En síntesis FM (Frecuencia Modulada), ¿cómo se describe el flujo de señal de este algoritmo de 4 operadores?",
+    question: "En síntesis FM (Frecuencia Modulada), ¿cómo se describe la estructura y el ruteo de este algoritmo de 4 operadores?",
     points: 1,
     isBonus: false,
     image: "assets/images/image3.png",
     options: [
-      "Los Operadores 1 y 2 son portadoras independientes de salida; los Operadores 3 y 4 actúan como moduladores en cascada.",
-      "El Operador 1 es la portadora de salida; los Operadores 2 y 3 modulan al 1 en paralelo; el Operador 4 modula al 3 con feedback.",
-      "El Operador 4 es la única portadora de salida audible; los Operadores 3, 2 y 1 modulan en serie sucesiva sin retroalimentación.",
-      "Los 4 operadores están conectados directamente en paralelo al bus de salida de audio sin interactuar modularmente entre sí."
+      "Posee dos portadoras audibles en paralelo, cada una modulada por un operador en serie lineal.",
+      "Posee una sola portadora de audio conectada a dos ramas moduladoras en paralelo (una en cascada).",
+      "Posee una única cadena de modulación donde los cuatro operadores se conectan en serie sucesiva.",
+      "Posee cuatro portadoras independientes conectadas directamente a la salida sin modulación entre sí."
     ],
     correctIndex: 1,
-    explanation: "En la notación clásica de síntesis FM: el operador de la base (Op 1) con la línea inferior es la portadora (Carrier) audible. Los operadores 2 y 3 ingresan a él en paralelo como moduladores. El operador 4 modula específicamente al 3 y cuenta con una línea de retroalimentación (feedback loop) sobre sí mismo."
+    explanation: "En la notación clásica de síntesis FM: este algoritmo cuenta con una única portadora conectada al bus de salida de audio, la cual recibe modulación en paralelo desde dos ramas distintas: una rama directa y otra rama con dos operadores en cascada y retroalimentación."
   },
   {
     id: 4,
-    question: "En la síntesis por modulación de frecuencia (FM), ¿qué determina principalmente la cantidad de armónicos (bandas laterales) y la brillantez del timbre?",
+    question: "Con respecto al algoritmo anterior: ¿Cuál operador es la portadora (Carrier) que entrega el sonido al bus de audio de salida?",
     points: 1,
     isBonus: false,
-    image: null,
+    image: "assets/images/image3.png",
     options: [
-      "La fase eléctrica absoluta de inicio del oscilador portador al momento de recibir la orden de compuerta (Gate).",
-      "El índice de modulación, controlado por la amplitud o nivel de salida del operador modulador.",
-      "La tasa de muestreo y la profundidad de bits configuradas en el convertidor digital a analógico.",
-      "La impedancia de salida de los cables de conexión utilizados para rutear las señales de modulación."
+      "Operador 1",
+      "Operador 2",
+      "Operador 3",
+      "Operador 4"
     ],
-    correctIndex: 1,
-    explanation: "En la síntesis FM (desarrollada por John Chowning), la riqueza armónica depende directamente del Índice de Modulación (I = Δf / fm), el cual se controla variando la amplitud o nivel de salida del operador modulador. A mayor amplitud del modulador, mayor índice de modulación y mayor número de bandas laterales (armónicos) generados alrededor de la portadora."
+    correctIndex: 0,
+    explanation: "El Operador 1 es la portadora porque es el único que tiene la línea de conexión saliendo hacia el bus de audio del sintetizador."
   },
   {
     id: 5,
-    question: "En síntesis FM, ¿cuál es el efecto tímbrico característico de aplicar retroalimentación (Feedback / Automodulación) sobre un operador?",
+    question: "Con respecto al mismo algoritmo: ¿Cuál operador cuenta con bucle de retroalimentación (Feedback / Automodulación)?",
     points: 1,
     isBonus: false,
-    image: null,
+    image: "assets/images/image3.png",
     options: [
-      "Disminuye la frecuencia base hasta convertir el operador en una fuente de modulación sub-audible (LFO).",
-      "Invierte los intervalos de afinación de la escala temperada transformando notas agudas en notas graves.",
-      "Incrementa la densidad armónica enriqueciendo el espectro sonoro, pudiendo generar ruido a niveles altos.",
-      "Produce un retardo de fase temporal continuo generando un efecto espacial de eco o reverberación estéreo."
+      "Operador 1",
+      "Operador 2",
+      "Operador 3",
+      "Operador 4"
     ],
-    correctIndex: 2,
-    explanation: "El bucle de feedback (automodulación) retroalimenta la salida de un operador sobre su propia frecuencia. A niveles moderados enriquece progresivamente la onda senoidal pura agregando armónicos (aproximándose al timbre de una onda sierra); a valores extremos genera ruido denso, recurso indispensable para sintetizar platillos y elementos percusivos."
+    correctIndex: 3,
+    explanation: "El Operador 4 posee el recuadro de retorno sobre su propia entrada (feedback loop), lo que le permite automodularse para generar mayor densidad de armónicos o ruido controlado."
   },
   {
     id: 6,
