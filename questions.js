@@ -8,7 +8,9 @@
  *
  *   'fundamentos' : Set de preguntas formativas (Ondas, ADSR, LFO, S&H, VCA, Parámetros del sonido)
  *   'avanzado'    : Set de preguntas técnicas originales (Algoritmos FM, módulos Doepfer, VCV Rack, etc.)
- *   'completo'    : Ambos sets combinados (26 preguntas)
+ *   'fundamentos' : Set de preguntas formativas (Ondas, ADSR, LFO, S&H, VCA, Parámetros del sonido)
+ *   'avanzado'    : Set de preguntas técnicas originales (Algoritmos FM, módulos Doepfer, VCV Rack, etc.)
+ *   'completo'    : Ambos sets combinados (24 preguntas)
  * ============================================================================
  */
 const EXAM_MODE = 'completo'; // <-- Modificar aquí: 'fundamentos' | 'avanzado' | 'completo'
@@ -207,21 +209,6 @@ const FUNDAMENTAL_QUESTIONS = [
     ],
     correctIndex: 1,
     explanation: "En síntesis modular, eléctricamente todas son voltajes, pero funcionalmente: las señales de Audio Rate se mueven a velocidades que el oído humano percibe como sonido (20 Hz - 20 kHz); las señales de Control Rate (CV) se mueven más lento (LFO, envolventes, voltajes de tono) y su propósito no es escucharse directamente, sino dirigir y automatizar a los demás módulos."
-  },
-  {
-    id: 13,
-    question: "Cultura Make Noise Lab: ¿Por qué en síntesis modular se dice que 'un parche nunca se termina'?",
-    points: 0,
-    isBonus: true,
-    image: null,
-    options: [
-      "Porque siempre hay una modulación más que probar y si desconectas el parche se pierde.",
-      "Porque los módulos Eurorack se sobrecalientan si permanecen conectados en la misma posición.",
-      "Porque es una norma técnica estipulada en los manuales de la Asociación Chilena de Sonido.",
-      "Porque los cables de patch pierden conductividad si se dejan fijos por más de una sesión."
-    ],
-    correctIndex: 0,
-    explanation: "El encanto y la mística de la síntesis modular es lo efímero: un parche es una escultura sonora temporal e irrepetible. Cada sesión es una exploración única."
   }
 ];
 
@@ -262,18 +249,18 @@ const ADVANCED_QUESTIONS = [
   },
   {
     id: 3,
-    question: "En síntesis FM (Frecuencia Modulada), ¿cómo se describe el flujo de señal de este algoritmo de 4 operadores?",
+    question: "En síntesis FM (Frecuencia Modulada), ¿cómo se describe la estructura y el ruteo de este algoritmo de 4 operadores?",
     points: 1,
     isBonus: false,
     image: "assets/images/image3.png",
     options: [
-      "Los Operadores 1 y 2 son portadoras independientes de salida; los Operadores 3 y 4 actúan como moduladores en cascada.",
-      "El Operador 1 es la portadora de salida; los Operadores 2 y 3 modulan al 1 en paralelo; el Operador 4 modula al 3 con feedback.",
-      "El Operador 4 es la única portadora de salida audible; los Operadores 3, 2 y 1 modulan en serie sucesiva sin retroalimentación.",
-      "Los 4 operadores están conectados directamente en paralelo al bus de salida de audio sin interactuar modularmente entre sí."
+      "Posee dos portadoras audibles en paralelo, cada una modulada por un operador en serie lineal.",
+      "Posee una sola portadora de audio conectada a dos ramas moduladoras en paralelo (una en cascada).",
+      "Posee una única cadena de modulación donde los cuatro operadores se conectan en serie sucesiva.",
+      "Posee cuatro portadoras independientes conectadas directamente a la salida sin modulación entre sí."
     ],
     correctIndex: 1,
-    explanation: "En la notación clásica de síntesis FM: el operador de la base (Op 1) con la línea inferior es la portadora (Carrier) audible. Los operadores 2 y 3 ingresan a él en paralelo como moduladores. El operador 4 modula específicamente al 3 y cuenta con una línea de retroalimentación (feedback loop) sobre sí mismo."
+    explanation: "En la notación clásica de síntesis FM: este algoritmo cuenta con una única portadora conectada al bus de salida de audio, la cual recibe modulación en paralelo desde dos ramas distintas: una rama directa y otra rama con dos operadores en cascada y retroalimentación."
   },
   {
     id: 4,
@@ -382,36 +369,21 @@ const ADVANCED_QUESTIONS = [
   },
   {
     id: 11,
-    question: "Pregunta de rigor Make Noise Lab: La dura, ¿a qué suena realmente un cable MIDI cuando lo conectai?",
-    points: 0,
-    isBonus: true,
+    question: "En la interconexión de instrumentos electrónicos y módulos, ¿qué tipo de señal transmite el estándar de comunicación MIDI?",
+    points: 1,
+    isBonus: false,
     image: null,
     options: [
-      "A sinte analógico ochentero bien gordito y con calidez vintage.",
-      "A nada po: no lleva audio, solo paquetes de datos y números binarios.",
-      "Al clásico chillido de módem telefónico Dial-Up de los años noventa.",
-      "A latencia analógica pura circulando entre los conectores DIN."
+      "Flujo de audio digital multicanal en modulación PCM sin compresión.",
+      "Exclusivamente paquetes de datos binarios con instrucciones y eventos de control (Note On, Pitch, Clock), sin señal de audio.",
+      "Voltajes analógicos de control de alta precisión para modulación directa de tono (1V/Oct) y disparo.",
+      "Señales de audio analógico de nivel de línea balanceadas para evitar interferencias de ruido electromagnético."
     ],
     correctIndex: 1,
-    explanation: "Un cable MIDI jamás transporta sonido: solo paquetes numéricos que le indican a un instrumento digital cuándo, cuánto y con qué fuerza tocar una nota."
+    explanation: "El estándar MIDI (Musical Instrument Digital Interface) no transporta audio ni voltajes analógicos, sino exclusivamente un protocolo de comunicación serie con mensajes de datos digitales (eventos como activación/corte de nota, velocidad, cambios de control y sincronía de reloj) que indican a los sintetizadores receptores cómo y cuándo generar sonido."
   },
   {
     id: 12,
-    question: "Cultura modular en Make Noise Lab: ¿Por qué es fundamental dominar los nudos náuticos?",
-    points: 0,
-    isBonus: true,
-    image: null,
-    options: [
-      "Porque si el cable no tiene nudo marinero se le escapa el voltaje de control de afinación.",
-      "Para fondear el case Eurorack y que no salga volando cuando hay marejadas de feedback.",
-      "Para desenredar la selva de patch cords de 3.5mm cuando el modular se pone mañoso.",
-      "Es un requisito técnico de la Armada de Chile para autorizar conciertos con sintetizadores."
-    ],
-    correctIndex: 2,
-    explanation: "El orden del cableado en síntesis modular es vital para no terminar con una ensalada inmanejable de cables cruzados en pleno concierto."
-  },
-  {
-    id: 13,
     question: "En la síntesis modular, ¿a qué tipo de señal de control corresponde cada forma de onda (A, B y C) al presionar y soltar dos teclas sucesivas (Nota 1 y Nota 2 más aguda)?",
     points: 1,
     isBonus: false,
