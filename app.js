@@ -158,14 +158,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const rulesEl = document.getElementById('examRulesSummary');
   if (rulesEl) {
-    rulesEl.textContent = `${techCount} preguntas técnicas de selección múltiple + ${bonusCount} preguntas bonus de humor (sin puntaje). Cada pregunta técnica cuenta con su respectivo diagrama de análisis.`;
+    rulesEl.textContent = bonusCount > 0
+      ? `${techCount} preguntas técnicas de selección múltiple + ${bonusCount} preguntas bonus de humor (sin puntaje). Cada pregunta técnica cuenta con su respectivo diagrama de análisis.`
+      : `${techCount} preguntas técnicas de selección múltiple. Cada pregunta técnica cuenta con su respectivo diagrama de análisis.`;
   }
 
   const pointsValEl = document.getElementById('metricPointsVal');
   if (pointsValEl) pointsValEl.textContent = `${techCount} PTS`;
 
   const pointsLabelEl = document.getElementById('metricPointsLabel');
-  if (pointsLabelEl) pointsLabelEl.textContent = `TÉCNICOS (+${bonusCount} BONUS)`;
+  if (pointsLabelEl) {
+    pointsLabelEl.textContent = bonusCount > 0 ? `TÉCNICOS (+${bonusCount} BONUS)` : `PUNTOS TÉCNICOS`;
+  }
 
   const passingRateEl = document.getElementById('metricPassingRate');
   if (passingRateEl) passingRateEl.textContent = `${EXAM_CONFIG.passingScorePercentage}%`;
@@ -175,9 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const infoBonusEl = document.getElementById('infoBonusNote');
   if (infoBonusEl) {
-    infoBonusEl.textContent = bonusCount === 1
-      ? 'La pregunta de humor es bonus y no afecta tu nota. Cada pregunta técnica vale 1 punto.'
-      : `Las ${bonusCount} preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.`;
+    if (bonusCount > 0) {
+      infoBonusEl.textContent = bonusCount === 1
+        ? 'La pregunta de humor es bonus y no afecta tu nota. Cada pregunta técnica vale 1 punto.'
+        : `Las ${bonusCount} preguntas de humor son bonus y no afectan tu nota. Cada pregunta técnica vale 1 punto.`;
+    } else {
+      infoBonusEl.textContent = 'Cada pregunta técnica de selección múltiple equivale a 1 punto. Se requiere un 70% de aciertos para aprobar.';
+    }
   }
 
   if (EXAM_CONFIG.title) document.title = `${EXAM_CONFIG.title} — Make Noise Lab`;
@@ -606,6 +614,7 @@ function sendWhatsAppReceipt() {
 
   const bonusTotal = record.bonusTotal || QUESTIONS.filter(q => q.isBonus).length;
   const statusText = record.passed ? '✅ APROBADO' : '❌ REPROBADO';
+  const bonusLine = bonusTotal > 0 ? `🤡 *Bonus:* ${record.bonusCorrect}/${bonusTotal} preguntas de humor\n` : '';
   const msg =
 `*Make Noise Lab — Examen Teórico Síntesis Modular* 🎛️
 
@@ -613,8 +622,7 @@ function sendWhatsAppReceipt() {
 📱 *Contacto:* ${record.studentWhatsapp}
 📊 *Puntaje:* ${record.score}/${record.totalPoints} pts (${record.percentage}%)
 🎯 *Resultado:* ${statusText} (Corte: ${EXAM_CONFIG.passingScorePercentage}%)
-🤡 *Bonus:* ${record.bonusCorrect}/${bonusTotal} preguntas de humor
-📅 *Fecha:* ${new Date(record.completedAt).toLocaleString('es-CL')}
+${bonusLine}📅 *Fecha:* ${new Date(record.completedAt).toLocaleString('es-CL')}
 
 _Make Noise Lab (makenoiselab.cl)_`;
 

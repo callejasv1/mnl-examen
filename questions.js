@@ -8,7 +8,9 @@
  *
  *   'fundamentos' : Set de preguntas formativas (Ondas, ADSR, LFO, S&H, VCA, Parámetros del sonido)
  *   'avanzado'    : Set de preguntas técnicas originales (Algoritmos FM, módulos Doepfer, VCV Rack, etc.)
- *   'completo'    : Ambos sets combinados (26 preguntas)
+ *   'fundamentos' : Set de preguntas formativas (Ondas, ADSR, LFO, S&H, VCA, Parámetros del sonido)
+ *   'avanzado'    : Set de preguntas técnicas originales (Algoritmos FM, módulos Doepfer, VCV Rack, etc.)
+ *   'completo'    : Ambos sets combinados (24 preguntas)
  * ============================================================================
  */
 const EXAM_MODE = 'completo'; // <-- Modificar aquí: 'fundamentos' | 'avanzado' | 'completo'
@@ -207,21 +209,6 @@ const FUNDAMENTAL_QUESTIONS = [
     ],
     correctIndex: 1,
     explanation: "En síntesis modular, eléctricamente todas son voltajes, pero funcionalmente: las señales de Audio Rate se mueven a velocidades que el oído humano percibe como sonido (20 Hz - 20 kHz); las señales de Control Rate (CV) se mueven más lento (LFO, envolventes, voltajes de tono) y su propósito no es escucharse directamente, sino dirigir y automatizar a los demás módulos."
-  },
-  {
-    id: 13,
-    question: "Cultura Make Noise Lab: ¿Por qué en síntesis modular se dice que 'un parche nunca se termina'?",
-    points: 0,
-    isBonus: true,
-    image: null,
-    options: [
-      "Porque siempre hay una modulación más que probar y si desconectas el parche se pierde.",
-      "Porque los módulos Eurorack se sobrecalientan si permanecen conectados en la misma posición.",
-      "Porque es una norma técnica estipulada en los manuales de la Asociación Chilena de Sonido.",
-      "Porque los cables de patch pierden conductividad si se dejan fijos por más de una sesión."
-    ],
-    correctIndex: 0,
-    explanation: "El encanto y la mística de la síntesis modular es lo efímero: un parche es una escultura sonora temporal e irrepetible. Cada sesión es una exploración única."
   }
 ];
 
@@ -277,33 +264,33 @@ const ADVANCED_QUESTIONS = [
   },
   {
     id: 4,
-    question: "Con respecto al algoritmo anterior: ¿Cuál operador es la portadora (Carrier) que entrega el sonido al bus de audio de salida?",
+    question: "En la síntesis por modulación de frecuencia (FM), ¿qué determina principalmente la cantidad de armónicos (bandas laterales) y la brillantez del timbre?",
     points: 1,
     isBonus: false,
-    image: "assets/images/image3.png",
+    image: null,
     options: [
-      "Operador 1",
-      "Operador 2",
-      "Operador 3",
-      "Operador 4"
+      "La fase eléctrica absoluta de inicio del oscilador portador al momento de recibir la orden de compuerta (Gate).",
+      "El índice de modulación, controlado por la amplitud o nivel de salida del operador modulador.",
+      "La tasa de muestreo y la profundidad de bits configuradas en el convertidor digital a analógico.",
+      "La impedancia de salida de los cables de conexión utilizados para rutear las señales de modulación."
     ],
-    correctIndex: 0,
-    explanation: "El Operador 1 es la portadora porque es el único que tiene la línea de conexión saliendo hacia el bus de audio del sintetizador."
+    correctIndex: 1,
+    explanation: "En la síntesis FM (desarrollada por John Chowning), la riqueza armónica depende directamente del Índice de Modulación (I = Δf / fm), el cual se controla variando la amplitud o nivel de salida del operador modulador. A mayor amplitud del modulador, mayor índice de modulación y mayor número de bandas laterales (armónicos) generados alrededor de la portadora."
   },
   {
     id: 5,
-    question: "Con respecto al mismo algoritmo: ¿Cuál operador cuenta con bucle de retroalimentación (Feedback / Automodulación)?",
+    question: "En síntesis FM, ¿cuál es el efecto tímbrico característico de aplicar retroalimentación (Feedback / Automodulación) sobre un operador?",
     points: 1,
     isBonus: false,
-    image: "assets/images/image3.png",
+    image: null,
     options: [
-      "Operador 1",
-      "Operador 2",
-      "Operador 3",
-      "Operador 4"
+      "Disminuye la frecuencia base hasta convertir el operador en una fuente de modulación sub-audible (LFO).",
+      "Invierte los intervalos de afinación de la escala temperada transformando notas agudas en notas graves.",
+      "Incrementa la densidad armónica enriqueciendo el espectro sonoro, pudiendo generar ruido a niveles altos.",
+      "Produce un retardo de fase temporal continuo generando un efecto espacial de eco o reverberación estéreo."
     ],
-    correctIndex: 3,
-    explanation: "El Operador 4 posee el recuadro de retorno sobre su propia entrada (feedback loop), lo que le permite automodularse para generar mayor densidad de armónicos o ruido controlado."
+    correctIndex: 2,
+    explanation: "El bucle de feedback (automodulación) retroalimenta la salida de un operador sobre su propia frecuencia. A niveles moderados enriquece progresivamente la onda senoidal pura agregando armónicos (aproximándose al timbre de una onda sierra); a valores extremos genera ruido denso, recurso indispensable para sintetizar platillos y elementos percusivos."
   },
   {
     id: 6,
@@ -382,36 +369,21 @@ const ADVANCED_QUESTIONS = [
   },
   {
     id: 11,
-    question: "Pregunta de rigor Make Noise Lab: La dura, ¿a qué suena realmente un cable MIDI cuando lo conectai?",
-    points: 0,
-    isBonus: true,
+    question: "En la interconexión de instrumentos electrónicos y módulos, ¿qué tipo de señal transmite el estándar de comunicación MIDI?",
+    points: 1,
+    isBonus: false,
     image: null,
     options: [
-      "A sinte analógico ochentero bien gordito y con calidez vintage.",
-      "A nada po: no lleva audio, solo paquetes de datos y números binarios.",
-      "Al clásico chillido de módem telefónico Dial-Up de los años noventa.",
-      "A latencia analógica pura circulando entre los conectores DIN."
+      "Flujo de audio digital multicanal en modulación PCM sin compresión.",
+      "Exclusivamente paquetes de datos binarios con instrucciones y eventos de control (Note On, Pitch, Clock), sin señal de audio.",
+      "Voltajes analógicos de control de alta precisión para modulación directa de tono (1V/Oct) y disparo.",
+      "Señales de audio analógico de nivel de línea balanceadas para evitar interferencias de ruido electromagnético."
     ],
     correctIndex: 1,
-    explanation: "Un cable MIDI jamás transporta sonido: solo paquetes numéricos que le indican a un instrumento digital cuándo, cuánto y con qué fuerza tocar una nota."
+    explanation: "El estándar MIDI (Musical Instrument Digital Interface) no transporta audio ni voltajes analógicos, sino exclusivamente un protocolo de comunicación serie con mensajes de datos digitales (eventos como activación/corte de nota, velocidad, cambios de control y sincronía de reloj) que indican a los sintetizadores receptores cómo y cuándo generar sonido."
   },
   {
     id: 12,
-    question: "Cultura modular en Make Noise Lab: ¿Por qué es fundamental dominar los nudos náuticos?",
-    points: 0,
-    isBonus: true,
-    image: null,
-    options: [
-      "Porque si el cable no tiene nudo marinero se le escapa el voltaje de control de afinación.",
-      "Para fondear el case Eurorack y que no salga volando cuando hay marejadas de feedback.",
-      "Para desenredar la selva de patch cords de 3.5mm cuando el modular se pone mañoso.",
-      "Es un requisito técnico de la Armada de Chile para autorizar conciertos con sintetizadores."
-    ],
-    correctIndex: 2,
-    explanation: "El orden del cableado en síntesis modular es vital para no terminar con una ensalada inmanejable de cables cruzados en pleno concierto."
-  },
-  {
-    id: 13,
     question: "En la síntesis modular, ¿a qué tipo de señal de control corresponde cada forma de onda (A, B y C) al presionar y soltar dos teclas sucesivas (Nota 1 y Nota 2 más aguda)?",
     points: 1,
     isBonus: false,
